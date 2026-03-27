@@ -1,0 +1,71 @@
+/* TETAP PAKAI FLOAT (SESUAI MODUL) TAPI DIKASIH JARAK */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+header {
+    background-color: #721c24; /* Maroon sesuai logo */
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0 15px;
+}
+
+/* PEMBAGIAN LAYAR SESUAI MODUL (PAKAI FLOAT) */
+main {
+    width: 65%; /* Konten utama 65% */
+    float: left;
+    background: white;
+    margin: 20px;
+    padding: 20px;
+    min-height: 400px;
+    border-radius: 8px;
+}
+
+aside {
+    width: 20%; /* Sidebar 20% */
+    float: right;
+    background: #fff;
+    margin: 20px;
+    padding: 20px;
+    border-left: 5px solid #721c24; /* Biar ada aksen maroon */
+    border-radius: 8px;
+}
+
+footer {
+    clear: both; /* WAJIB ADA KALAU PAKAI FLOAT */
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+/* TABEL BIAR RAPI TAPI TETAP STANDAR MODUL */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #721c24;
+    color: white;
+}
