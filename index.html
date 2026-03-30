@@ -4,57 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Sistem Booking Lapangan Jember</title>
+    <title>Beranda | Sistem Booking Lapangan Jember</title>
 </head>
 <body>
-    <header>
-        <h1>Sistem Booking Lapangan Kota Jember</h1>
-        <img src="logo.png" alt="Logo Sistem" height="200">
+
+    <header class="navbar-fixed">
+        <div class="nav-container">
+            <div class="nav-left">
+                <img src="logo.png" alt="Logo" class="nav-logo">
+            </div>
+
+            <div class="search-container">
+                <form class="search-box">
+                    <input type="text" placeholder="Cari kode booking atau lapangan...">
+                    <button type="submit">Cari</button>
+                </form>
+            </div>
+
+            <nav class="nav-right">
+                <a href="lapangan.html">Daftar Lapangan</a>
+                <a href="riwayat.html">Transaksi Booking</a>
+                <a href="booking.html" class="btn-booking">Booking</a>
+            </nav>
+        </div>
     </header>
 
-    <nav>
-        <a href="index.html">Home</a> |
-        <a href="booking.html">Booking Lapangan</a> |
-        <a href="riwayat.html">Riwayat Transaksi</a> |
-        <a href="lapangan.html">Daftar Lapangan</a> |
-        <a href="kontak.html">Kontak</a>
-    </nav>
-    <hr>
-    <main>
-        <section>
-            <h2>Selamat Datang</h2>
-            <p>
-                Website ini digunakan untuk melakukan booking lapangan olahraga
-                di Kota Jember seperti futsal, badminton, dan basket secara online.
-            </p>
+    <div class="content-spacer"></div>
 
-            <a href="booking.html">
-                <button>Booking Sekarang</button>
-            </a>
-        </section>
-        <hr>
-        <section>
-            <h2>Jenis Lapangan</h2>
-            <ul>
-                <li>Lapangan Futsal</li>
-                <li>Lapangan Badminton</li>
-                <li>Lapangan Basket</li>
-            </ul>
-        </section>
-    </main>
-    <aside>
-        <h3>Statistik Booking</h3>
+    <section class="hero">
+        <h1>Selamat Datang di Sistem Booking Lapangan Jember</h1>
+        <p>Solusi mudah, cepat, dan online untuk reservasi lapangan futsal, badminton, dan basket di Kota Jember.</p>
+    </section>
 
-        <p>Total Booking Hari Ini : 5</p>
-        <p>Futsal : 2</p>
-        <p>Badminton : 2</p>
-        <p>Basket : 1</p>
+<div class="home-layout">
+    
+    <div class="field-grid">
+        <h2 style="color: var(--maroon); margin-bottom: 20px;">Pilihan Lapangan Populer</h2>
+        
+        <div class="grid-container">
+            <div class="field-card">
+                <div class="field-image">
+                    <img src="futsal.jpg" alt="Futsal"> <span class="badge">Futsal</span>
+                </div>
+                <div class="field-info">
+                    <h3>Champion Futsal</h3>
+                    <p>📍 Sumbersari, Jember</p>
+                    <div class="field-price">Rp 100.000 / Jam</div>
+                    <a href="booking.html" class="btn-pilih">Pilih Lapangan</a>
+                </div>
+            </div>
+
+            <div class="field-card">
+                <div class="field-image">
+                    <img src="badminton.jpg" alt="Badminton">
+                    <span class="badge">Badminton</span>
+                </div>
+                <div class="field-info">
+                    <h3>Jember Sport Hall</h3>
+                    <p>📍 Kaliwates, Jember</p>
+                    <div class="field-price">Rp 50.000 / Jam</div>
+                    <a href="booking.html" class="btn-pilih">Pilih Lapangan</a>
+                </div>
+            </div>
+
+            <div class="field-card">
+                <div class="field-image">
+                    <img src="basket.jpg" alt="Basket">
+                    <span class="badge">Basket</span>
+                </div>
+                <div class="field-info">
+                    <h3>GOR PKPSO</h3>
+                    <p>📍 Patrang, Jember</p>
+                    <div class="field-price">Rp 80.000 / Jam</div>
+                    <a href="booking.html" class="btn-pilih">Pilih Lapangan</a>
+                </div>
+            </div>
+
+            <div class="field-card">
+                <div class="field-image">
+                    <img src="padel.jpg" alt="Padel">
+                    <span class="badge">Padel</span>
+                </div>
+                <div class="field-info">
+                    <h3>SEMPUSARI PADEL</h3>
+                    <p>📍 Mangli, Jember</p>
+                    <div class="field-price">Rp 80.000 / Jam</div>
+                    <a href="booking.html" class="btn-pilih">Pilih Lapangan</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <aside class="sidebar-sticky">
+        <div class="filter-box">
+            <h3>Filter Cepat</h3>
+            <hr>
+            <div class="filter-group">
+                <label><strong>Kategori Olahraga</strong></label><br>
+                <input type="checkbox"> Futsal <br>
+                <input type="checkbox"> Badminton <br>
+                <input type="checkbox"> Basket <br>
+                <input type="checkbox"> Padel
+            </div>
+            <div class="filter-group">
+                <label><strong>Range Harga</strong></label><br>
+                <input type="range" min="30000" max="200000" style="width: 100%;">
+                <p style="font-size: 12px; color: #666;">Rp 30rb - Rp 200rb</p>
+            </div>
+            <button class="btn-pilih" style="width: 100%;">Terapkan Filter</button>
+        </div>
     </aside>
-    <hr>
-    <footer>
-        <p>Sistem Booking Lapangan Kota Jember</p>
-        <p>Dibuat oleh: Bilqis</p>
-        <p>2026</p>
-    </footer>
+</div>
+
+    <div class="card-container">
+        <div class="card">
+            <h3>5</h3>
+            <p>Booking Hari Ini</p>
+        </div>
+        <div class="card">
+            <h3>156</h3>
+            <p>Total Booking</p>
+        </div>
+        <div class="card">
+            <h3>Futsal</h3>
+            <p>Lapangan Terbanyak Dibooking</p>
+        </div>
+        <div class="card">
+            <h3>Padel</h3>
+            <p>Lapangan Tersedikit Dibooking</p>
+        </div>
+    </div>
+
+<section style="padding: 40px 5%; text-align: center; clear: both;">
+    <h2 style="color: #721c24; margin-bottom: 30px;">Grafik Pemesanan Mingguan</h2>
+    
+    <div style="background: white; padding: 40px 20px 20px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto;">
+        
+        <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 200px; border-bottom: 2px solid #eee; padding-bottom: 10px;">
+            
+            <div style="display: flex; flex-direction: column; align-items: center; width: 40px;">
+                <div style="width: 100%; height: 80px; background-color: #721c24; border-radius: 5px 5px 0 0;"></div>
+                <span style="font-size: 12px; margin-top: 10px; font-weight: bold; color: #555;">Sen</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center; width: 40px;">
+                <div style="width: 100%; height: 120px; background-color: #721c24; border-radius: 5px 5px 0 0;"></div>
+                <span style="font-size: 12px; margin-top: 10px; font-weight: bold; color: #555;">Sel</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center; width: 40px;">
+                <div style="width: 100%; height: 60px; background-color: #721c24; border-radius: 5px 5px 0 0;"></div>
+                <span style="font-size: 12px; margin-top: 10px; font-weight: bold; color: #555;">Rab</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center; width: 40px;">
+                <div style="width: 100%; height: 160px; background-color: #721c24; border-radius: 5px 5px 0 0;"></div>
+                <span style="font-size: 12px; margin-top: 10px; font-weight: bold; color: #555;">Kam</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center; width: 40px;">
+                <div style="width: 100%; height: 190px; background-color: #721c24; border-radius: 5px 5px 0 0;"></div>
+                <span style="font-size: 12px; margin-top: 10px; font-weight: bold; color: #555;">Jum</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center; width: 40px;">
+                <div style="width: 100%; height: 100px; background-color: #721c24; border-radius: 5px 5px 0 0;"></div>
+                <span style="font-size: 12px; margin-top: 10px; font-weight: bold; color: #555;">Sab</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center; width: 40px;">
+                <div style="width: 100%; height: 50px; background-color: #721c24; border-radius: 5px 5px 0 0;"></div>
+                <span style="font-size: 12px; margin-top: 10px; font-weight: bold; color: #555;">Min</span>
+            </div>
+
+        </div>
+        <p style="color: #888; font-size: 13px; margin-top: 20px;">*Grafik aktivitas pesanan lapangan periode Maret 2026</p>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-col">
+            <h2 style="color: var(--butter); margin-top: 0;">ABOUT US</h2>
+            <p>Solusi digital terbaik untuk pemesanan lapangan olahraga di Jember.</p>
+            <div class="sosmed-icons">
+                <a href="#" style="margin-right: 15px; text-decoration: none;">📸 Instagram</a>
+                <a href="#" style="margin-right: 15px; text-decoration: none;">📘 Facebook</a>
+                <a href="#" style="text-decoration: none;">🐦 Twitter</a>
+            </div>
+        </div>
+
+        <div class="footer-col" style="border-left: 1px solid #555; border-right: 1px solid #555; padding: 0 30px;">
+            <h4>KONTAK & ALAMAT</h4>
+            <p>📍 Jl. Kalimantan No. 37, Sumbersari, Jember</p>
+            <p>📞 0812-3456-7890</p>
+            <p>✉️ admin@bilsport.com</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>APA ITU BILSPORT?</h4>
+            <p>
+                <strong>BILSPORT</strong> adalah platform manajemen olahraga yang memudahkan atlet lokal menemukan dan menyewa lapangan tanpa perlu datang langsung. Kami berkomitmen memajukan sportivitas di Kota Jember.
+            </p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 40px; border-top: 1px solid #444; padding-top: 20px; font-size: 13px; color: #888;">
+        &copy; 2026 BILSPORT JEMBER - Dibuat oleh Bilqis
+    </div>
+</footer>
+
 </body>
 </html>

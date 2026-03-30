@@ -1,71 +1,408 @@
-/* TETAP PAKAI FLOAT (SESUAI MODUL) TAPI DIKASIH JARAK */
+:root {
+    --butter: #fff7d4;
+    --maroon: #721c24;
+    --dark: #333;
+    --white: #ffffff;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
 }
 
-header {
-    background-color: #721c24; /* Maroon sesuai logo */
-    color: white;
+header.navbar-fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--butter);
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 15px 0;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5%;
+}
+
+.nav-logo { height: 80px; }
+
+.search-container { flex: 1; display: flex; justify-content: center; }
+.search-box { display: flex; width: 80%; max-width: 400px; }
+.search-box input {
+    flex: 1; padding: 10px; border: 1px solid #ccc;
+    border-radius: 20px 0 0 20px; outline: none;
+}
+.search-box button {
+    padding: 10px 20px; background: var(--maroon); color: white;
+    border: none; border-radius: 0 20px 20px 0; cursor: pointer;
+}
+
+.nav-right a {
+    text-decoration: none; color: var(--dark);
+    margin-left: 20px; font-weight: bold;
+}
+.btn-booking {
+    background: var(--maroon); color: white !important;
+    padding: 8px 15px; border-radius: 5px;
+}
+
+.content-spacer { height: 133px; }
+
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column; 
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .nav-logo {
+        height: 60px; 
+    }
+
+    .search-box {
+        width: 100%;
+        max-width: none;
+    }
+
+    .nav-right {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap; 
+        margin-left: 0;
+        gap: 10px;
+    }
+
+    .nav-right a {
+        margin: 5px;
+        font-size: 14px;
+    }
+
+    .content-spacer {
+        height: 250px; 
+    }
+}
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .nav-container {
+        flex-wrap: wrap;       
+        justify-content: space-around; 
+        gap: 20px;
+        padding: 15px 3%;
+    }
+
+    .search-container {
+        order: 3;             
+        width: 100%;          
+        margin-top: 10px;
+    }
+
+    .nav-right {
+        margin-left: 0;     
+    }
+
+    .nav-logo {
+        height: 70px;        
+    }
+
+    .content-spacer {
+        height: 180px; 
+    }
+}
+
+.hero { 
+    text-align: center; 
+    padding: 100px 20px; 
+
+    background: linear-gradient(rgba(114, 28, 36, 0.9), rgba(0, 0, 0, 0.9)), url('futsal.jpg'); 
+    
+    background-size: cover;
+    background-position: center;
+
+    color: white; 
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+.hero p {
+    font-size: 1.1rem;
+    color: #eee; 
+}
+
+.card-container {
+    display: flex;            
+    flex-wrap: wrap;           
+    justify-content: center;   
+    gap: 30px;                 
+    padding: 50px 5%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card {
+    background: white; 
+    padding: 30px 15px;      
+    width: 220px;              
+    min-height: 180px;       
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
     text-align: center;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    border-bottom: 5px solid var(--maroon);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+@media (max-width: 1024px) {
+    .card-container {
+        gap: 20px; 
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        width: 85%;            
+        max-width: 300px;      
+    }
+    
+    .card-container {
+        flex-direction: column; 
+        align-items: center;    
+        gap: 20px;             
+    }
+}
+
+.home-layout {
+    display: flex;
+    padding: 40px 5%;
+    gap: 30px;
+    clear: both;
+}
+
+.field-grid {
+    flex: 3;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 25px;
+}
+
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: 1fr; 
+    }
+}
+
+.field-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.field-card:hover {
+    transform: translateY(-8px);
+}
+
+.field-image {
+    position: relative;
+    height: 180px;
+    background: #ddd; 
+}
+
+.field-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--maroon);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.field-info {
     padding: 20px;
 }
 
-nav {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
+.field-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #333;
 }
 
-nav a {
+.field-price {
+    color: var(--maroon);
+    font-weight: bold;
+    font-size: 16px;
+    margin: 15px 0;
+}
+
+.btn-pilih {
+    display: block;
+    text-align: center;
+    background: var(--maroon);
     color: white;
     text-decoration: none;
-    padding: 0 15px;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-/* PEMBAGIAN LAYAR SESUAI MODUL (PAKAI FLOAT) */
-main {
-    width: 65%; /* Konten utama 65% */
-    float: left;
+.field-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+}
+
+.btn-pilih:hover {
+    background: #4a1117;
+}
+
+.sidebar-sticky {
+    flex: 1;
+    min-width: 250px;
+}
+
+.filter-box {
     background: white;
-    margin: 20px;
-    padding: 20px;
-    min-height: 400px;
-    border-radius: 8px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 120px; 
 }
 
-aside {
-    width: 20%; /* Sidebar 20% */
-    float: right;
-    background: #fff;
-    margin: 20px;
-    padding: 20px;
-    border-left: 5px solid #721c24; /* Biar ada aksen maroon */
-    border-radius: 8px;
+.filter-group {
+    margin: 20px 0;
+}
+
+@media (max-width: 900px) {
+    .home-layout {
+        flex-direction: column-reverse;
+    }
+    .sidebar-sticky {
+        width: 100%;
+    }
+}
+
+.tabel-lapangan {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabel-lapangan th {
+    background-color: var(--maroon);
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.tabel-lapangan td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.tabel-lapangan tbody tr:nth-child(even) {
+    background-color: #fff7d4; 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero h1, .hero p {
+    animation: fadeIn 1s ease-out;
 }
 
 footer {
-    clear: both; /* WAJIB ADA KALAU PAKAI FLOAT */
-    background: #333;
+    background-color: #222; 
+    color: #ddd;
+    padding: 60px 5% 30px 5%;
+    clear: both;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-col h4 {
+    color: var(--butter);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.footer-col p {
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.sosmed-icons a {
     color: white;
-    text-align: center;
-    padding: 15px;
+    font-size: 14px;
+    transition: 0.3s;
 }
 
-/* TABEL BIAR RAPI TAPI TETAP STANDAR MODUL */
-table {
-    width: 100%;
-    border-collapse: collapse;
+.sosmed-icons a:hover {
+    color: var(--butter);
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-th {
-    background-color: #721c24;
-    color: white;
+@media (max-width: 768px) {
+    .footer-col {
+        border: none !important;
+        padding: 0 !important;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .footer-container {
+        flex-direction: column;
+    }
 }

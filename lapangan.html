@@ -4,45 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Daftar Lapangan</title>
+    <title>Daftar Lapangan | Sistem Booking Jember</title>
 </head>
 <body>
-    <header>
-        <h1>Daftar Lapangan Olahraga</h1>
+
+    <header class="navbar-fixed">
+        <div class="nav-container">
+            <div class="nav-left">
+                <img src="logo.png" alt="Logo" class="nav-logo">
+            </div>
+            <div class="search-container">
+                <form class="search-box">
+                    <input type="text" placeholder="Cari lapangan...">
+                    <button type="submit">Cari</button>
+                </form>
+            </div>
+            <nav class="nav-right">
+                <a href="index.html">Home</a>
+                <a href="lapangan.html">Daftar Lapangan</a>
+                <a href="riwayat.html">Transaksi</a>
+                <a href="booking.html" class="btn-booking">Booking</a>
+            </nav>
+        </div>
     </header>
-    <nav>
-        <a href="index.html">Home</a> |
-        <a href="booking.html">Booking Lapangan</a> |
-        <a href="lapangan.html">Daftar Lapangan</a>
-    </nav>
-    <hr>
-    <section>
-        <table>
+    
+<div class="content-spacer"></div>
+
+<div class="home-layout">
+    
+<div class="field-grid">
+    <h2 style="color: var(--maroon); margin-bottom: 20px;">Daftar Lapangan Tersedia</h2>
+    
+    <table class="tabel-lapangan">
+        <thead>
             <tr>
                 <th>No</th>
                 <th>Nama Lapangan</th>
-                <th>Jenis</th>
+                <th>Jenis Olahraga</th>
+                <th>Lokasi</th>
                 <th>Harga / Jam</th>
+                <th>Aksi</th>
             </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td>1</td>
                 <td>Champion Futsal</td>
                 <td>Futsal</td>
-                <td>Rp100.000</td>
+                <td>Sumbersari</td>
+                <td>Rp 100.000</td>
+                <td><a href="booking.html" class="btn-pilih" style="padding: 5px 10px; font-size: 12px;">Pilih</a></td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>Jember Sport Hall</td>
                 <td>Badminton</td>
-                <td>Rp50.000</td>
+                <td>Kaliwates</td>
+                <td>Rp 50.000</td>
+                <td><a href="booking.html" class="btn-pilih" style="padding: 5px 10px; font-size: 12px;">Pilih</a></td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>GOR PKPSO</td>
                 <td>Basket</td>
-                <td>Rp80.000</td>
+                <td>Patrang</td>
+                <td>Rp 80.000</td>
+                <td><a href="booking.html" class="btn-pilih" style="padding: 5px 10px; font-size: 12px;">Pilih</a></td>
             </tr>
-        </table>
-    </section>
+            <tr>
+                <td>4</td>
+                <td>Padel Jember Center</td>
+                <td>Padel</td>
+                <td>Slawu</td>
+                <td>Rp 150.000</td>
+                <td><a href="booking.html" class="btn-pilih" style="padding: 5px 10px; font-size: 12px;">Pilih</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+    <aside class="sidebar-sticky">
+        <div class="filter-box">
+            <h3>Filter Lapangan</h3>
+            <hr>
+            <div class="filter-group">
+                <label><strong>Jenis Olahraga</strong></label><br>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox"> Futsal <br>
+                    <input type="checkbox"> Badminton <br>
+                    <input type="checkbox"> Basket <br>
+                    <input type="checkbox"> Padel
+                </div>
+            </div>
+            <div class="filter-group">
+                <label><strong>Lokasi</strong></label><br>
+                <input type="checkbox"> Jember Kota <br>
+                <input type="checkbox"> Sumbersari <br>
+                <input type="checkbox"> Kaliwates
+            </div>
+            <button class="btn-pilih" style="width: 100%;">Terapkan Filter</button>
+        </div>
+    </aside>
+</div>
+
+    <footer>
+    <div class="footer-container">
+        <div class="footer-col">
+            <h2 style="color: var(--butter); margin-top: 0;">ABOUT US</h2>
+            <p>Solusi digital terbaik untuk pemesanan lapangan olahraga di Jember.</p>
+            <div class="sosmed-icons">
+                <a href="#" style="margin-right: 15px; text-decoration: none;">📸 Instagram</a>
+                <a href="#" style="margin-right: 15px; text-decoration: none;">📘 Facebook</a>
+                <a href="#" style="text-decoration: none;">🐦 Twitter</a>
+            </div>
+        </div>
+
+        <div class="footer-col" style="border-left: 1px solid #555; border-right: 1px solid #555; padding: 0 30px;">
+            <h4>KONTAK & ALAMAT</h4>
+            <p>📍 Jl. Kalimantan No. 37, Sumbersari, Jember</p>
+            <p>📞 0812-3456-7890</p>
+            <p>✉️ admin@bilsport.com</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>APA ITU BILSPORT?</h4>
+            <p>
+                <strong>BILSPORT</strong> adalah platform manajemen olahraga yang memudahkan atlet lokal menemukan dan menyewa lapangan tanpa perlu datang langsung. Kami berkomitmen memajukan sportivitas di Kota Jember.
+            </p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 40px; border-top: 1px solid #444; padding-top: 20px; font-size: 13px; color: #888;">
+        &copy; 2026 BILSPORT JEMBER - Dibuat oleh Bilqis
+    </div>
+    </footer>
 </body>
 </html>
