@@ -73,24 +73,33 @@ function setupSearch() {
 renderTabel(dataTransaksi);
 setupSearch();
 // 1. DATA ASLI JEMBER
-let dataLapangan = JSON.parse(localStorage.getItem('bilsport_db')) || [
-    { kode: "LKR-F001", nama: "Champion Futsal", kategori: "Futsal", lokasi: "Jl. Kaliurang, Sumbersari", harga: 150000, stok: 12 },
-    { kode: "LKR-B001", nama: "GOR Argopuro", kategori: "Badminton", lokasi: "Jl. Teuku Umar, Kaliwates", harga: 40000, stok: 8 },
-    { kode: "LKR-S001", nama: "GOR PKPSO", kategori: "Basket", lokasi: "Kaliwates (Sport Hall)", harga: 100000, stok: 5 },
-    { kode: "LKR-P001", nama: "Jember Padel Court", kategori: "Padel", lokasi: "Jl. Jawa, Sumbersari", harga: 250000, stok: 4 }
+let dataLapangan = [
+    { kode: "LKR-F01", nama: "Champion Futsal", kategori: "Futsal", lokasi: "Sumbersari", harga: 150000, tanggal: "2026-04-01" },
+    { kode: "LKR-B01", nama: "GOR Argopuro", kategori: "Badminton", lokasi: "Kaliwates", harga: 40000, tanggal: "2026-04-02" },
+    { kode: "LKR-S01", nama: "GOR PKPSO", kategori: "Basket", lokasi: "Kaliwates", harga: 100000, tanggal: "2026-04-03" },
+    { kode: "LKR-P01", nama: "Jember Padel", kategori: "Padel", lokasi: "Sumbersari", harga: 250000, tanggal: "2026-04-04" },
+    { kode: "LKR-F02", nama: "Scudetto Futsal", kategori: "Futsal", lokasi: "Kebonsari", harga: 130000, tanggal: "2026-04-05" },
+    { kode: "LKR-B02", nama: "GOR Garuda", kategori: "Badminton", lokasi: "Sumbersari", harga: 35000, tanggal: "2026-04-06" },
+    { kode: "LKR-B03", nama: "Niki Badminton", kategori: "Badminton", lokasi: "Patrang", harga: 30000, tanggal: "2026-04-07" },
+    { kode: "LKR-F03", nama: "Galaxy Futsal", kategori: "Futsal", lokasi: "Arjasa", harga: 110000, tanggal: "2026-04-08" },
+    { kode: "LKR-S02", nama: "Kancil Mas Basket", kategori: "Basket", lokasi: "Kaliwates", harga: 90000, tanggal: "2026-04-09" },
+    { kode: "LKR-P02", nama: "Padel Jember 2", kategori: "Padel", lokasi: "Jember Kidul", harga: 200000, tanggal: "2026-04-10" },
+    { kode: "LKR-F04", nama: "Indo Futsal", kategori: "Futsal", lokasi: "Kaliwates", harga: 140000, tanggal: "2026-04-11" },
+    { kode: "LKR-B04", nama: "Mirota Badminton", kategori: "Badminton", lokasi: "Kaliwates", harga: 45000, tanggal: "2026-04-12" }
 ];
 
 // 2. FUNGSI RENDER (Menampilkan ke Layar)
-const renderAll = () => {
+// Tambahkan parameter 'data', defaultnya adalah dataLapangan asli
+const renderAll = (data = dataLapangan) => {
     const cardGrid = document.getElementById('cardGrid');
     const tableBody = document.getElementById('listLapanganTable');
     
-    // Kosongkan dulu sebelum diisi
     if(cardGrid) cardGrid.innerHTML = "";
     if(tableBody) tableBody.innerHTML = "";
 
-    dataLapangan.forEach((item, index) => {
-        // Render ke Card Maroon
+    // Sekarang kita looping dari parameter 'data', bukan 'dataLapangan' global
+    data.forEach((item, index) => {
+        // Render ke Card
         if(cardGrid) {
             cardGrid.innerHTML += `
                 <div class="blue-card">
@@ -114,7 +123,7 @@ const renderAll = () => {
             `;
         }
 
-        // Render ke Tabel Rincian
+        // Render ke Tabel
         if(tableBody) {
             tableBody.innerHTML += `
                 <tr>
@@ -124,6 +133,7 @@ const renderAll = () => {
                     <td>${item.nama}</td>
                     <td>${item.lokasi}</td>
                     <td>Rp ${parseInt(item.harga).toLocaleString()}</td>
+                    <td>${item.tanggal}</td>
                     <td>
                         <button class="btn-edit-sm" onclick="openModal('edit', ${index})">Edit</button>
                         <button class="btn-hapus-sm" onclick="hapusData(${index})">Hapus</button>
@@ -133,9 +143,14 @@ const renderAll = () => {
         }
     });
 
+    // Cek jika data kosong (untuk filter)
+    if (data.length === 0 && cardGrid) {
+        cardGrid.innerHTML = "<p style='grid-column: 1/-1; text-align:center; padding:20px;'>Yah, tidak ada lapangan yang cocok...</p>";
+    }
+};
     // Simpan ke memori browser
     localStorage.setItem('bilsport_db', JSON.stringify(dataLapangan));
-};
+
 
 // 3. LOGIKA MODAL (Tambah & Edit)
 window.openModal = (type, index = -1) => {
@@ -162,9 +177,12 @@ window.closeModal = () => {
 };
 
 // 4. SIMPAN DATA
+// 4. SIMPAN DATA
 document.getElementById('formLapanganMain').addEventListener('submit', (e) => {
     e.preventDefault();
     const idx = document.getElementById('editIndex').value;
+
+    // --- DISINI TEMPATNYA! SELIPIN BARIS TANGGAL DI BAWAH STOK ---
     const newData = {
         kode: document.getElementById('kode').value,
         nama: document.getElementById('nama').value,
@@ -172,12 +190,18 @@ document.getElementById('formLapanganMain').addEventListener('submit', (e) => {
         lokasi: document.getElementById('lokasi').value,
         harga: document.getElementById('harga').value,
         stok: document.getElementById('stok').value,
+        tanggal: document.getElementById('formTanggal').value // <--- TAMBAHIN INI JANGAN SAMPAI KETINGGALAN
     };
+    // ----------------------------------------------------------
 
     if (idx === "-1") {
         dataLapangan.push(newData);
+        // --- NOTIFIKASI TAMBAH ---
+        alert("Sip! Lapangan baru berhasil ditambahin."); 
     } else {
         dataLapangan[idx] = newData;
+        // --- NOTIFIKASI UBAH ---
+        alert("Oke! Data lapangan berhasil diupdate."); 
     }
 
     closeModal();
@@ -189,8 +213,77 @@ window.hapusData = (index) => {
     if(confirm("Yakin mau hapus data ini?")) {
         dataLapangan.splice(index, 1);
         renderAll();
+        // --- NOTIFIKASI HAPUS ---
+        alert("Data berhasil dihapus!");
     }
 };
 
 // Jalankan fungsi pertama kali
 renderAll();
+
+// Fungsi Filter
+// Fungsi Filter
+window.applyFilter = () => {
+    const checkboxes = document.querySelectorAll('.filter-kategori:checked');
+    const kategoriDipilih = Array.from(checkboxes).map(cb => cb.value);
+    const hargaMaks = document.getElementById('filterHarga').value;
+
+    const dataTersaring = dataLapangan.filter(item => {
+        const matchKategori = kategoriDipilih.length === 0 || kategoriDipilih.includes(item.kategori);
+        const matchHarga = parseInt(item.harga) <= parseInt(hargaMaks);
+        return matchKategori && matchHarga;
+    });
+
+    // Panggil fungsi render utama dengan data yang sudah disaring
+    renderAll(dataTersaring); 
+};
+// Fungsi Render Khusus Hasil Filter
+const renderFiltered = (dataTerfilter) => {
+    const cardGrid = document.getElementById('cardGrid');
+    const tableBody = document.getElementById('listLapanganTable');
+
+    cardGrid.innerHTML = "";
+    tableBody.innerHTML = "";
+
+    if (dataTerfilter.length === 0) {
+        cardGrid.innerHTML = "<p style='grid-column: 1/-1; text-align:center; padding:20px;'>Yah, tidak ada lapangan yang cocok...</p>";
+        return;
+    }
+
+    // Pakai logika render yang sama dengan renderAll tapi sumber datanya dataTerfilter
+    dataTerfilter.forEach((item, index) => {
+        // ... (Masukkan kode render card dan row tabel seperti di fungsi renderAll kamu) ...
+        // Tips: Biar praktis, fungsi renderAll kamu sebaiknya menerima parameter data (data = dataLapangan)
+    });
+};
+
+// Update Label Harga secara Real-time saat slider digeser
+document.getElementById('filterHarga')?.addEventListener('input', function() {
+    document.getElementById('labelHarga').innerText = "Rp " + parseInt(this.value).toLocaleString();
+});
+
+// Fungsi Reset
+window.resetFilter = () => {
+    document.querySelectorAll('.filter-kategori').forEach(cb => cb.checked = false);
+    document.getElementById('filterHarga').value = 300000;
+    document.getElementById('labelHarga').innerText = "Rp 300,000";
+    renderAll(); // Kembalikan ke data awal
+};
+
+// Fungsi Cari Lapangan
+// Fungsi Cari Lapangan (Pencarian Real-time)
+window.handleSearch = () => {
+    // 1. Ambil kata kunci dari input search
+    const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
+    
+    // 2. Filter data: Cek apakah Nama ATAU Kode mengandung kata kunci
+    const hasilCari = dataLapangan.filter(item => {
+        return item.nama.toLowerCase().includes(keyword) || 
+               item.kode.toLowerCase().includes(keyword); // <--- Ini yang WAJIB ada sesuai soal
+    });
+
+    // 3. Tampilkan hasilnya ke grid dan tabel
+    renderAll(hasilCari);
+};
+
+

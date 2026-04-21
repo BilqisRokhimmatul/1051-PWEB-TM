@@ -7,60 +7,113 @@
     <title>Daftar Lapangan | Sistem Booking Jember</title>
 </head>
 <body>
-
-    <header class="navbar-fixed">
+<header class="navbar-fixed">
         <div class="nav-container">
             <div class="nav-left">
                 <img src="logo.png" alt="Logo" class="nav-logo">
             </div>
-            <div class="search-container">
-                <form class="search-box">
-                    <input type="text" placeholder="Cari lapangan...">
-                    <button type="submit">Cari</button>
-                </form>
+
+           <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Cari lapangan kesukaanmu..." onkeyup="handleSearch()">
+            <button class="btn-search" onclick="handleSearch()">Cari</button>
             </div>
+
             <nav class="nav-right">
                 <a href="index.html">Home</a>
-                <a href="lapangan.html">Daftar Lapangan</a>
-                <a href="riwayat.html">Transaksi</a>
+                <a href="riwayat.html">Riwayat Booking</a>
                 <a href="booking.html" class="btn-booking">Booking</a>
             </nav>
         </div>
     </header>
     
 <div class="content-spacer"></div>
-
-<main class="dashboard-wrapper">
-    <div class="dashboard-header">
-        <h2 class="page-title">Manajemen Lapangan</h2>
+<div class="header-halaman">
+    <div class="judul-kiri">
+        <h2 class="page-title">Daftar Lapangan</h2>
+    </div>
+    <div class="tombol-kanan">
         <button class="btn-add-main" onclick="openModal('tambah')">+ Tambah Lapangan</button>
     </div>
-
-    <div id="cardGrid" class="card-grid">
+</div>
+<main class="dashboard-container">
+    <section class="content-left">
+        <div id="cardGrid" class="card-grid-4">
+            </div>
+    </section>
+    
+<aside class="sidebar-right">
+    <div class="filter-card">
+        <h3 class="filter-title"><i class="fas fa-sliders-h"></i> Filter Lapangan</h3>
+        
+        <div class="filter-group">
+            <label class="group-label">🎾 Kategori Olahraga</label>
+            <div class="checkbox-container">
+                <label class="custom-checkbox">
+                    <input type="checkbox" class="filter-kategori" value="Futsal">
+                    <span class="checkmark"></span> Futsal
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" class="filter-kategori" value="Badminton">
+                    <span class="checkmark"></span> Badminton
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" class="filter-kategori" value="Basket">
+                    <span class="checkmark"></span> Basket
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" class="filter-kategori" value="Padel">
+                    <span class="checkmark"></span> Padel
+                </label>
+            </div>
         </div>
 
-    <div class="table-section">
-        <div class="table-header">
-            <h3>Daftar Lengkap Data Lapangan</h3>
+        <div class="filter-group">
+            <label class="group-label">💰 Rentang Harga</label>
+            <input type="range" id="filterHarga" min="30000" max="500000" step="10000" value="500000" class="styled-range">
+            <div class="price-display">
+                <span>Maks:</span>
+                <strong id="labelHarga">Rp 500,000</strong>
+            </div>
         </div>
-        <div class="table-container">
-            <table class="modern-table">
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>KODE</th>
-                        <th>KATEGORI</th>
-                        <th>NAMA LAPANGAN</th>
-                        <th>LOKASI</th>
-                        <th>HARGA/JAM</th>
-                        <th>AKSI</th>
-                    </tr>
-                </thead>
-                <tbody id="listLapanganTable">
-                    </tbody>
-            </table>
+
+        <div class="filter-actions">
+            <button class="btn-apply" onclick="applyFilter()">Terapkan</button>
+            <button class="btn-reset" onclick="resetFilter()">Reset</button>
         </div>
     </div>
+</aside>
+</main>
+
+
+<main class="dashboard-container">
+    <section class="content-left">
+        <div id="cardGrid" class="card-grid-4"></div>
+
+        <div class="table-section-nanti" style="margin-top: 40px;">
+            <h3 style="color: var(--maroon); margin-bottom: 15px;">Daftar Lengkap Data Lapangan</h3>
+            <div class="table-container">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode</th>
+                            <th>Kategori</th>
+                            <th>Nama Lapangan</th>
+                            <th>Lokasi</th>
+                            <th>Harga</th>
+                            <th>Tanggal Masuk</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listLapanganTable">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <aside class="sidebar-right">
+        </aside>
 </main>
 
 <div id="modalForm" class="modal-overlay">
@@ -101,6 +154,11 @@
                     <label>Stok Jam *</label>
                     <input type="number" id="stok" required>
                 </div>
+                <div class="input-box">
+                    <label>Tanggal Masuk</label>
+                    <input type="date" id="formTanggal" required>
+                </div>
+        
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>

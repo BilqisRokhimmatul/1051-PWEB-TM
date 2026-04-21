@@ -506,15 +506,24 @@ footer {
 }
 
 /* Tombol Tambah di Atas */
-.btn-add-main { 
-    background: var(--maroon); 
-    color: white; 
-    border: none; 
-    padding: 12px 24px; 
-    border-radius: 8px; 
-    cursor: pointer; 
-    font-weight: 600; 
-    transition: 0.3s; 
+.header-halaman {
+    display: flex; /* Bikin searah baris */
+    justify-content: space-between; /* Judul ke kiri mentok, tombol ke kanan mentok */
+    align-items: center; /* Biar tinggi mereka sejajar di tengah */
+    margin: 30px 5% 10px 5%; /* Atur jarak margin kanan kiri biar pas sama konten */
+    padding-bottom: 15px;
+}
+
+/* Biar tombol tambah tetap rapi */
+.btn-add-main {
+    background: var(--maroon);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap; /* Biar teks tombol gak turun ke bawah (tetap satu baris) */
 }
 .btn-add-main:hover { 
     background: var(--maroon-dark); 
@@ -700,3 +709,208 @@ footer {
     font-size: 12px; 
     font-weight: 600; 
 }
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 280px; /* Card di kiri, Sidebar 280px di kanan */
+    gap: 25px;
+    padding: 20px;
+}
+
+/* Grid 4 Kolom */
+.card-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Maksa jadi 4 kolom */
+    gap: 15px;
+}
+
+/* Sidebar Filter Lucu */
+/* Container Filter Utama */
+.filter-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.filter-title {
+    color: var(--maroon);
+    font-size: 18px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group {
+    background: #fffafa; /* Warna putih kemerahan sangat tipis */
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ffe4e6;
+}
+
+.group-label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 12px;
+}
+
+/* Checkbox Custom ala Kos-kosan */
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    transition: 0.2s;
+}
+
+.custom-checkbox:hover {
+    color: var(--maroon);
+}
+
+.custom-checkbox input {
+    margin-right: 10px;
+    accent-color: var(--maroon); /* Warna maroon pas dicentang */
+    width: 16px;
+    height: 16px;
+}
+
+/* Range Slider */
+.styled-range {
+    width: 100%;
+    accent-color: var(--maroon);
+    cursor: pointer;
+}
+
+.price-display {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+#labelHarga {
+    color: var(--maroon);
+}
+
+/* Tombol-tombol */
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-apply {
+    flex: 2;
+    background: var(--maroon);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-apply:hover {
+    background: #5d171d;
+    box-shadow: 0 5px 15px rgba(114, 28, 36, 0.3);
+}
+
+.btn-reset {
+    flex: 1;
+    background: #f8f9fa;
+    color: #888;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-reset:hover {
+    background: #eee;
+    color: #444;
+}
+
+/* Perkecil Card supaya muat 4 */
+.blue-card {
+    font-size: 13px; /* Ukuran font lebih kecil sedikit */
+}
+
+/* Efek Ngambang untuk Container Tabel */
+.table-section-nanti {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    /* Efek Shadow agar terlihat melayang dari background */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+/* Tabel Modern */
+.modern-table {
+    width: 100%;
+    border-collapse: separate; /* Penting untuk border-radius */
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* Header Tabel */
+.modern-table th {
+    background: var(--maroon);
+    color: var(--butter);
+    padding: 18px 15px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+/* Efek Zebra (Baris Genap) */
+.modern-table tbody tr:nth-child(even) {
+    background-color: #fdfaf3; /* Warna krem tipis (butter muda) */
+}
+
+/* Baris Ganjil (Default Putih) */
+.modern-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Efek Hover saat Kursor Diarahkan */
+.modern-table tbody tr:hover {
+    background-color: #fff1f2 !important; /* Warna maroon sangat muda */
+    transform: scale(1.002); /* Sedikit membesar */
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+/* Styling Sel (TD) */
+.modern-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: var(--dark);
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+/* Menghilangkan border bawah di baris terakhir agar tidak merusak radius */
+.modern-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
