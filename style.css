@@ -583,7 +583,7 @@ footer {
 .modern-table { width: 100%; border-collapse: collapse; min-width: 800px; }
 
 .modern-table th { 
-    background: var(--butter); /* Header tabel pakai butter biar segar */
+    background: var(--butter); 
     color: var(--maroon); 
     font-size: 12px; 
     font-weight: 700; 
