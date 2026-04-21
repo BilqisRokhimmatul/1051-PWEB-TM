@@ -14,78 +14,43 @@
             </div>
 
             <div class="search-container">
-                <form class="search-box">
-                    <input type="text" placeholder="Cari kode booking atau lapangan...">
+                <form class="search-box" id="formSearch">
+                    <input type="text" id="inputSearch" placeholder="Cari nama pemesan...">
                     <button type="submit">Cari</button>
                 </form>
             </div>
 
             <nav class="nav-right">
-                <a href="lapangan.html">Daftar Lapangan</a>
-                <a href="riwayat.html">Transaksi Booking</a>
+                <a href="index.html">Home</a>
+                <a href="lapangan.html">Lapangan</a>
                 <a href="booking.html" class="btn-booking">Booking</a>
             </nav>
         </div>
     </header>
 <div class="content-spacer"></div>
-    <nav>
-        <a href="index.html">Home</a> |
-        <a href="booking.html">Booking Lapangan</a> |
-        <a href="riwayat.html">Riwayat Transaksi</a>
-    </nav>
-    <hr>
-    <section>
-        <table>
-            <tr>
-                <th>No</th>
-                <th>Kode Booking</th>
-                <th>Nama</th>
-                <th>Lapangan</th>
-                <th>Tanggal</th>
-                <th>Durasi</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>BK001</td>
-                <td>Bilqis</td>
-                <td>Futsal</td>
-                <td>12-04-2026</td>
-                <td>2 Jam</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>BK002</td>
-                <td>Fara</td>
-                <td>Badminton</td>
-                <td>13-04-2026</td>
-                <td>1 Jam</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>BK003</td>
-                <td>Bella</td>
-                <td>Basket</td>
-                <td>14-04-2026</td>
-                <td>3 Jam</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>BK004</td>
-                <td>Rina</td>
-                <td>Futsal</td>
-                <td>15-04-2026</td>
-                <td>2 Jam</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>BK005</td>
-                <td>Dika</td>
-                <td>Badminton</td>
-                <td>16-04-2026</td>
-                <td>1 Jam</td>
-            </tr>
+<div class="home-layout">
+    <div class="field-grid">
+        <h2 style="color: var(--maroon); margin-bottom: 20px;">Riwayat Transaksi Booking</h2>
+        
+        <table class="tabel-lapangan">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Pemesan</th>
+                    <th>Kategori</th>
+                    <th>Lapangan</th>
+                    <th>Tanggal</th>
+                    <th>Jam</th>
+                    <th>Status</th> </tr>
+            </thead>
+            <tbody id="listTransaksi">
+                </tbody>
         </table>
-    </section>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
 <footer>
     <div class="footer-container">
         <div class="footer-col">
@@ -117,5 +82,9 @@
         &copy; 2026 BILSPORT JEMBER - Dibuat oleh Bilqis
     </div>
     </footer>
+    <a href="https://wa.me/6285785617164" class="wa-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    <span>Chat</span>
+</a>
 </body>
 </html>

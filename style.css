@@ -406,3 +406,297 @@ footer {
         flex-direction: column;
     }
 }
+
+/* Gaya dasar badge */
+.badge-status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.bg-booking {
+    background-color: #007bff; 
+}
+
+.bg-selesai {
+    background-color: #28a745; 
+}
+
+.bg-batal {
+    background-color: #dc3545; 
+}
+
+.wa-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25d366;
+    color: white !important;
+    padding: 12px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+.wa-float img {
+    width: 24px;
+    height: 24px;
+}
+
+.wa-float span {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.wa-float:hover {
+    transform: translateY(-5px); /* Efek melompat dikit saat hover */
+    background-color: #20b858;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+/* Responsif: Di HP cuma muncul logonya saja biar gak sempit */
+@media (max-width: 480px) {
+    .wa-float span {
+        display: none;
+    }
+    .wa-float {
+        padding: 15px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+:root {
+    --butter: #fff7d4;
+    --maroon: #721c24;
+    --maroon-dark: #4a1117; /* Untuk hover */
+    --dark: #333;
+    --white: #ffffff;
+    --bg-light: #fdfdfd; /* Background abu-abu sangat muda */
+}
+
+/* Layout & Utility */
+.dashboard-wrapper { 
+    padding: 30px 5%; 
+    background: #fcf8f8; /* Kasih nuansa kemerahan dikit biar gak dingin */
+    min-height: 100vh; 
+}
+
+.dashboard-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px; 
+}
+
+.page-title { 
+    color: var(--maroon); 
+    font-size: 24px; 
+    font-weight: 700; 
+    border-left: 5px solid var(--maroon); 
+    padding-left: 15px; 
+}
+
+/* Tombol Tambah di Atas */
+.btn-add-main { 
+    background: var(--maroon); 
+    color: white; 
+    border: none; 
+    padding: 12px 24px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: 600; 
+    transition: 0.3s; 
+}
+.btn-add-main:hover { 
+    background: var(--maroon-dark); 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 10px rgba(114, 28, 36, 0.3);
+}
+
+/* Card Grid (Maroon Theme) */
+.card-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+    gap: 20px; 
+    margin-bottom: 40px; 
+}
+
+.blue-card { 
+    background: white; 
+    border-radius: 16px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    transition: 0.3s; 
+    border: 1px solid #eee;
+}
+
+.card-top { 
+    background: var(--maroon); 
+    color: var(--butter); /* Teks pakai butter biar kontras dan mewah */
+    padding: 15px 20px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.card-content { padding: 20px; color: #4b5563; }
+.card-content p { margin: 10px 0; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+
+.card-bottom { 
+    border-top: 1px solid #f3f4f6; 
+    padding: 15px 20px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.card-price { 
+    font-weight: 800; 
+    color: var(--maroon); 
+    font-size: 18px; 
+}
+
+/* Modern Table */
+.table-section { 
+    background: white; 
+    border-radius: 16px; 
+    padding: 25px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+}
+
+.table-header h3 { 
+    color: var(--maroon); 
+    margin-bottom: 20px; 
+}
+
+.modern-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+
+.modern-table th { 
+    background: var(--butter); /* Header tabel pakai butter biar segar */
+    color: var(--maroon); 
+    font-size: 12px; 
+    font-weight: 700; 
+    padding: 15px; 
+    text-align: left; 
+    text-transform: uppercase; 
+    border-bottom: 2px solid #e9e2c4; 
+}
+
+.modern-table td { 
+    padding: 15px; 
+    border-bottom: 1px solid #f1f5f9; 
+    font-size: 14px; 
+    color: var(--dark); 
+}
+
+.modern-table tr:hover { 
+    background: #fffdf5; /* Hover baris tabel tipis-tipis warna butter */
+}
+
+/* Modal Styles */
+.modal-overlay { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.6); 
+    display: none; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 2000; 
+}
+
+.modal-card { 
+    background: white; 
+    width: 600px; 
+    max-width: 95%; 
+    border-radius: 16px; 
+    padding: 30px; 
+}
+
+.modal-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px; 
+}
+
+.modal-header h3 { color: var(--maroon); }
+
+.close-modal { cursor: pointer; font-size: 24px; color: #94a3b8; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.input-box label { 
+    display: block; 
+    font-size: 13px; 
+    font-weight: 700; 
+    color: var(--maroon); 
+    margin-bottom: 8px; 
+}
+
+.input-box input, .input-box select { 
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 8px; 
+    box-sizing: border-box; 
+}
+
+.input-box input:focus, .input-box select:focus {
+    border-color: var(--maroon);
+    outline: none;
+    background: #fffdf5;
+}
+
+.modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; }
+
+.btn-submit { 
+    background: var(--maroon); 
+    color: white; 
+    border: none; 
+    padding: 12px 25px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: bold;
+}
+
+.btn-cancel { 
+    background: #f1f5f9; 
+    color: #475569; 
+    border: none; 
+    padding: 12px 25px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+}
+
+/* Badge for Table Actions */
+.btn-edit-sm { 
+    background: #fef3c7; 
+    color: #92400e; 
+    border: none; 
+    padding: 5px 12px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 12px; 
+    font-weight: 600; 
+    margin-right: 5px;
+}
+
+.btn-hapus-sm { 
+    background: #fee2e2; 
+    color: #991b1b; 
+    border: none; 
+    padding: 5px 12px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 12px; 
+    font-weight: 600; 
+}
