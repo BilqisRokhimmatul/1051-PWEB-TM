@@ -407,7 +407,6 @@ footer {
     }
 }
 
-/* Gaya dasar badge */
 .badge-status {
     padding: 5px 12px;
     border-radius: 20px;
@@ -463,7 +462,6 @@ footer {
     box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
 
-/* Responsif: Di HP cuma muncul logonya saja biar gak sempit */
 @media (max-width: 480px) {
     .wa-float span {
         display: none;
@@ -477,16 +475,15 @@ footer {
 :root {
     --butter: #fff7d4;
     --maroon: #721c24;
-    --maroon-dark: #4a1117; /* Untuk hover */
+    --maroon-dark: #4a1117; 
     --dark: #333;
     --white: #ffffff;
-    --bg-light: #fdfdfd; /* Background abu-abu sangat muda */
+    --bg-light: #fdfdfd; 
 }
 
-/* Layout & Utility */
 .dashboard-wrapper { 
     padding: 30px 5%; 
-    background: #fcf8f8; /* Kasih nuansa kemerahan dikit biar gak dingin */
+    background: #fcf8f8;
     min-height: 100vh; 
 }
 
@@ -505,16 +502,14 @@ footer {
     padding-left: 15px; 
 }
 
-/* Tombol Tambah di Atas */
 .header-halaman {
-    display: flex; /* Bikin searah baris */
-    justify-content: space-between; /* Judul ke kiri mentok, tombol ke kanan mentok */
-    align-items: center; /* Biar tinggi mereka sejajar di tengah */
-    margin: 30px 5% 10px 5%; /* Atur jarak margin kanan kiri biar pas sama konten */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin: 30px 5% 10px 5%; 
     padding-bottom: 15px;
 }
 
-/* Biar tombol tambah tetap rapi */
 .btn-add-main {
     background: var(--maroon);
     color: white;
@@ -523,7 +518,7 @@ footer {
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    white-space: nowrap; /* Biar teks tombol gak turun ke bawah (tetap satu baris) */
+    white-space: nowrap; 
 }
 .btn-add-main:hover { 
     background: var(--maroon-dark); 
@@ -531,7 +526,6 @@ footer {
     box-shadow: 0 4px 10px rgba(114, 28, 36, 0.3);
 }
 
-/* Card Grid (Maroon Theme) */
 .card-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
@@ -550,7 +544,7 @@ footer {
 
 .card-top { 
     background: var(--maroon); 
-    color: var(--butter); /* Teks pakai butter biar kontras dan mewah */
+    color: var(--butter); 
     padding: 15px 20px; 
     display: flex; 
     justify-content: space-between; 
@@ -574,7 +568,6 @@ footer {
     font-size: 18px; 
 }
 
-/* Modern Table */
 .table-section { 
     background: white; 
     border-radius: 16px; 
@@ -608,10 +601,9 @@ footer {
 }
 
 .modern-table tr:hover { 
-    background: #fffdf5; /* Hover baris tabel tipis-tipis warna butter */
+    background: #fffdf5; 
 }
 
-/* Modal Styles */
 .modal-overlay { 
     position: fixed; 
     inset: 0; 
@@ -686,7 +678,6 @@ footer {
     cursor: pointer; 
 }
 
-/* Badge for Table Actions */
 .btn-edit-sm { 
     background: #fef3c7; 
     color: #92400e; 
@@ -712,7 +703,7 @@ footer {
 
 .dashboard-container {
     display: grid;
-    grid-template-columns: 1fr 280px; /* Card di kiri, Sidebar 280px di kanan */
+    grid-template-columns: 1fr 280px; 
     gap: 25px;
     padding: 20px;
 }
@@ -720,12 +711,10 @@ footer {
 /* Grid 4 Kolom */
 .card-grid-4 {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Maksa jadi 4 kolom */
+    grid-template-columns: repeat(4, 1fr); 
     gap: 15px;
 }
 
-/* Sidebar Filter Lucu */
-/* Container Filter Utama */
 .filter-card {
     background: #ffffff;
     border-radius: 20px;
@@ -744,7 +733,7 @@ footer {
 }
 
 .filter-group {
-    background: #fffafa; /* Warna putih kemerahan sangat tipis */
+    background: #fffafa;
     padding: 15px;
     border-radius: 12px;
     margin-bottom: 15px;
@@ -759,7 +748,6 @@ footer {
     margin-bottom: 12px;
 }
 
-/* Checkbox Custom ala Kos-kosan */
 .checkbox-container {
     display: flex;
     flex-direction: column;
@@ -781,12 +769,11 @@ footer {
 
 .custom-checkbox input {
     margin-right: 10px;
-    accent-color: var(--maroon); /* Warna maroon pas dicentang */
+    accent-color: var(--maroon); 
     width: 16px;
     height: 16px;
 }
 
-/* Range Slider */
 .styled-range {
     width: 100%;
     accent-color: var(--maroon);
@@ -845,32 +832,27 @@ footer {
     color: #444;
 }
 
-/* Perkecil Card supaya muat 4 */
 .blue-card {
-    font-size: 13px; /* Ukuran font lebih kecil sedikit */
+    font-size: 13px;
 }
 
-/* Efek Ngambang untuk Container Tabel */
 .table-section-nanti {
     background: white;
     border-radius: 16px;
     padding: 25px;
-    /* Efek Shadow agar terlihat melayang dari background */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
     border: 1px solid rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease;
 }
 
-/* Tabel Modern */
 .modern-table {
     width: 100%;
-    border-collapse: separate; /* Penting untuk border-radius */
+    border-collapse: separate;
     border-spacing: 0;
     overflow: hidden;
     border-radius: 12px;
 }
 
-/* Header Tabel */
 .modern-table th {
     background: var(--maroon);
     color: var(--butter);
@@ -882,25 +864,21 @@ footer {
     letter-spacing: 0.5px;
 }
 
-/* Efek Zebra (Baris Genap) */
 .modern-table tbody tr:nth-child(even) {
-    background-color: #fdfaf3; /* Warna krem tipis (butter muda) */
+    background-color: #fdfaf3; 
 }
 
-/* Baris Ganjil (Default Putih) */
 .modern-table tbody tr:nth-child(odd) {
     background-color: #ffffff;
 }
 
-/* Efek Hover saat Kursor Diarahkan */
 .modern-table tbody tr:hover {
-    background-color: #fff1f2 !important; /* Warna maroon sangat muda */
-    transform: scale(1.002); /* Sedikit membesar */
+    background-color: #fff1f2 !important; 
+    transform: scale(1.002); 
     transition: all 0.2s ease;
     cursor: pointer;
 }
 
-/* Styling Sel (TD) */
 .modern-table td {
     padding: 15px;
     border-bottom: 1px solid #eee;
@@ -909,8 +887,53 @@ footer {
     transition: 0.2s;
 }
 
-/* Menghilangkan border bawah di baris terakhir agar tidak merusak radius */
 .modern-table tbody tr:last-child td {
     border-bottom: none;
 }
 
+.statistics-container {
+    display: flex;
+    gap: 20px;
+    margin: 30px auto; 
+    max-width: 900px;  
+    padding: 0 20px;   
+}
+
+.stat-card {
+    background: #ffffff;
+    padding: 15px;  
+    border-radius: 12px;
+    flex: 1;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid #eef2f7;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card h3 {
+    margin: 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+}
+
+.stat-card p {
+    margin: 12px 0 0;
+    font-size: 28px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.warning {
+    background: #fff7ed;
+    border: 1px solid #ffedd5;
+}
+
+.warning p {
+    color: #ea580c;
+}
