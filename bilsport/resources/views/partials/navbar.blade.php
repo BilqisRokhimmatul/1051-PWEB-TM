@@ -11,7 +11,8 @@
 
         <nav class="nav-right">
             <a href="{{ url('/dashboard') }}">Dashboard</a>
-            <a href="{{ url('/tentang') }}">Tentang</a>
+            <a href="{{ url('/about') }}">Tentang</a>
+            <a href="{{ url('/contact') }}">Kontak</a>
         </nav>
     </div>
 </header>
