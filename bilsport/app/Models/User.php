@@ -30,3 +30,11 @@ class User extends Authenticatable
         ];
     }
 }
+
+class User extends Authenticatable
+{
+    public function lapangans()
+    {
+        return $this->hasMany(Lapangan::class);
+    }
+}
