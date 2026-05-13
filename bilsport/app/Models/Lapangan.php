@@ -10,15 +10,13 @@ class Lapangan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 
-        'kode_lapangan', 
-        'nama_lapangan', 
-        'kategori', 
-        'lokasi', 
-        'harga_per_jam', 
-        'is_available',
-        'foto_lapangan', 
-        'email_kontak'   
+    'kode_lapangan', 
+    'nama_lapangan', 
+    'email_kontak', 
+    'kategori', 
+    'harga_per_jam', 
+    'foto_lapangan', 
+    'user_id'       
     ];
 
     public function user()

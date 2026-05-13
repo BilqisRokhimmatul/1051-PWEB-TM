@@ -17,24 +17,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ['judul' => 'User Aktif', 'nilai' => '150', 'ikon' => '👤', 'warna' => 'darkred'],
         ];
 
-        $lapangans = \App\Models\Lapangan::all(); 
+        $lapangans = \App\Models\Lapangan::where('user_id', auth()->id())->get(); 
 
         return view('dashboard', compact('stats', 'lapangans'));
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    })->name('dashboard');
 
-    Route::resource('lapangan', LapanganController::class);
+    Route::middleware(['admin'])->group(function () {
+        Route::resource('lapangan', LapanganController::class);
+    });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/about', function () {
-    return view('about');
-    });
-
-    Route::get('/contact', function () {
-        return view('contact');
-    });
+    Route::get('/about', function () { return view('about'); })->name('about');
+    Route::get('/contact', function () { return view('contact'); })->name('contact');
+    
 });
 
 require __DIR__.'/auth.php';
