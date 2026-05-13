@@ -1,112 +1,84 @@
-@extends('layouts.app')
-
-@section('title', 'Beranda')
-
-@section('content')
-    <section class="hero">
-        <h1>Selamat Datang di Sistem Booking Lapangan Jember</h1>
-        <p>Solusi mudah, cepat, dan online untuk reservasi lapangan futsal, badminton, dan basket di Kota Jember.</p>
+<x-app-layout>
+    <section style="background: linear-gradient(135deg, #800000 0%, #4a0000 100%); color: white; padding: 60px 20px; text-align: center; border-radius: 0 0 50px 50px; margin-bottom: 40px;">
+        <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 15px;">Selamat Datang di Sistem Booking Lapangan Jember</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9;">Solusi mudah, cepat, dan online untuk reservasi lapangan futsal, badminton, dan basket di Kota Jember.</p>
     </section>
 
-    <div class="header-halaman">
-        <div class="judul-kiri">
-            <h2 class="page-title">Daftar Lapangan</h2>
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
+            @foreach($stats as $s)
+            <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; border-bottom: 5px solid {{ $s['warna'] }}; transition: 0.3s;">
+                <span style="font-size: 2.5rem;">{{ $s['ikon'] }}</span>
+                <h4 style="color: #888; font-size: 0.9rem; margin-top: 10px;">{{ $s['judul'] }}</h4>
+                <p style="font-size: 1.8rem; font-weight: bold; color: #333;">{{ $s['nilai'] }}</p>
+            </div>
+            @endforeach
         </div>
-        <div class="tombol-kanan">
-            <button class="btn-add-main" onclick="openModal('tambah')">+ Tambah Lapangan</button>
-        </div>
-    </div>
 
-    <div class="statistics-container" style="display: flex; gap: 20px; padding: 20px 5%; justify-content: space-around;">
-        @foreach($stats as $s)
-            @include('components.stat-card', [
-                'judul' => $s['judul'], 
-                'nilai' => $s['nilai'], 
-                'ikon' => $s['ikon'], 
-                'warna' => $s['warna']
-            ])
-        @endforeach
-    </div>
-
-    <main class="dashboard-container">
-        <section class="content-left">
-            <div id="cardGrid" class="card-grid-4"></div>
-
-            <div class="table-section-nanti" style="margin-top: 40px;">
-                <h3 style="color: var(--maroon); margin-bottom: 15px;">Daftar Lengkap Data Lapangan</h3>
-                <div class="table-container">
-                    <table class="modern-table">
-                        <thead>
+        <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 30px; margin-bottom: 50px;">
+            
+            <div style="background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <h3 style="color: maroon; font-weight: bold; font-size: 1.4rem;">Daftar Lengkap Data Lapangan</h3>
+                    <a href="{{ route('lapangan.create') }}" style="background: maroon; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: bold;">+ Tambah Lapangan</a>
+                </div>
+                
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead style="background: maroon; color: white;">
                             <tr>
-                                <th>No</th>
-                                <th>Kode</th>
-                                <th>Kategori</th>
-                                <th>Nama Lapangan</th>
-                                <th>Lokasi</th>
-                                <th>Harga</th>
-                                <th>Tanggal Masuk</th>
-                                <th>Aksi</th>
+                                <th style="padding: 15px; text-align: left; border-radius: 12px 0 0 0;">NO</th>
+                                <th style="padding: 15px; text-align: left;">KODE</th>
+                                <th style="padding: 15px; text-align: left;">NAMA LAPANGAN</th>
+                                <th style="padding: 15px; text-align: left;">HARGA</th>
+                                <th style="padding: 15px; text-align: center; border-radius: 0 12px 0 0;">AKSI</th>
                             </tr>
                         </thead>
-                        <tbody id="listLapanganTable">
-                            @forelse($lapangans as $key => $lp)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $lp['kode'] }}</td>
-                                    <td>{{ $lp['kat'] }}</td>
-                                    <td>{{ $lp['nama'] }}</td>
-                                    <td>{{ $lp['lok'] }}</td>
-                                    <td>Rp {{ $lp['harga'] }}</td>
-                                    <td>{{ $lp['tgl'] }}</td>
-                                    <td>
-                                        <button class="btn-edit" style="background: #ffc107; border:none; padding: 5px 10px; border-radius: 4px;">Edit</button>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="8" style="text-align: center; padding: 20px;">Data lapangan belum tersedia.</td>
-                                </tr>
-                            @endforelse
+                        <tbody>
+                            @foreach($lapangans as $key => $lp)
+                            <tr style="border-bottom: 1px solid #f5f5f5;">
+                                <td style="padding: 15px;">{{ $key + 1 }}</td>
+                                <td style="padding: 15px; font-weight: bold; color: maroon;">{{ $lp->kode_lapangan }}</td>
+                                <td style="padding: 15px;">{{ $lp->nama_lapangan }}</td>
+                                <td style="padding: 15px;">Rp {{ number_format($lp->harga_per_jam) }}</td>
+                                <td style="padding: 15px; text-align: center;">
+                                    <a href="{{ route('lapangan.edit', $lp->id) }}" style="background: #ffc107; color: black; padding: 5px 12px; border-radius: 6px; text-decoration: none; font-size: 0.8rem; font-weight: bold;">Edit</a>
+                                    <form action="{{ route('lapangan.destroy', $lp->id) }}" method="POST" style="display:inline;">
+                                        @csrf @method('DELETE')
+                                        <button style="background: #dc3545; color: white; border: none; padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-        </section>
-        
-        <aside class="sidebar-right">
-            <div class="filter-card">
-                <h3 class="filter-title">Filter Lapangan</h3>
-                <div class="filter-group">
-                    <label class="group-label">🎾 Kategori Olahraga</label>
-                    <div class="checkbox-container">
-                        <label class="custom-checkbox"><input type="checkbox" value="Futsal"> Futsal</label>
-                        <label class="custom-checkbox"><input type="checkbox" value="Badminton"> Badminton</label>
+
+            <aside>
+                <div style="background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: sticky; top: 120px;">
+                    <h3 style="color: maroon; font-weight: bold; border-bottom: 2px solid maroon; padding-bottom: 10px; margin-bottom: 20px;">Filter Lapangan</h3>
+                    <div style="margin-bottom: 25px;">
+                        <p style="font-weight: bold; margin-bottom: 12px; color: #555;">🎾 Kategori Olahraga</p>
+                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer;"><input type="checkbox"> Futsal</label>
+                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer;"><input type="checkbox"> Badminton</label>
+                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer;"><input type="checkbox"> Basket</label>
                     </div>
+                    <button style="width: 100%; background: maroon; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer;">Terapkan Filter</button>
                 </div>
-                <div class="filter-actions">
-                    <button class="btn-apply" style="width: 100%; padding: 10px; background: maroon; color: white; border: none; border-radius: 5px; margin-top: 10px;">Terapkan</button>
-                </div>
-            </div>
-        </aside>
-    </main>
-
-    <section style="padding: 40px 5%; text-align: center;">
-        <h2 style="color: #721c24; margin-bottom: 30px;">Grafik Pemesanan Mingguan</h2>
-        <div style="background: white; padding: 40px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto;">
-            <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 150px; border-bottom: 2px solid #eee;">
-                <div style="width: 30px; height: 60%; background: maroon; border-radius: 5px 5px 0 0;"></div>
-                <div style="width: 30px; height: 80%; background: maroon; border-radius: 5px 5px 0 0;"></div>
-                <div style="width: 30px; height: 40%; background: maroon; border-radius: 5px 5px 0 0;"></div>
-                <div style="width: 30px; height: 95%; background: maroon; border-radius: 5px 5px 0 0;"></div>
-            </div>
-            <p style="color: #888; font-size: 12px; mt-3">Statistik Mingguan</p>
+            </aside>
         </div>
-    </section>
-@endsection
 
-@push('scripts')
-<script>
-    console.log("Dashboard Blade Berhasil Dimuat!");
-</script>
-@endpush
-
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h3 style="color: maroon; font-weight: bold; margin-bottom: 30px;">Grafik Pemesanan Mingguan</h3>
+            <div style="background: white; padding: 40px; border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); max-width: 900px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-around; height: 250px;">
+                <div style="width: 40px; height: 50%; background: maroon; border-radius: 10px 10px 0 0;"></div>
+                <div style="width: 40px; height: 70%; background: maroon; border-radius: 10px 10px 0 0;"></div>
+                <div style="width: 40px; height: 40%; background: maroon; border-radius: 10px 10px 0 0;"></div>
+                <div style="width: 40px; height: 90%; background: maroon; border-radius: 10px 10px 0 0;"></div>
+                <div style="width: 40px; height: 60%; background: maroon; border-radius: 10px 10px 0 0;"></div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

@@ -1,37 +1,28 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title') | Sistem Booking Lapangan Jember</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Bilsport Jember</title>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
-    @stack('scripts')
 </head>
-<body>
-
+<body style="background-color: #FDF5E6; font-family: 'Poppins', sans-serif;">
+    
     @include('partials.navbar')
 
-    <div class="content-spacer"></div>
-
-    @if(session('success'))
-        <div style="background: #d4edda; color: #155724; padding: 15px; margin: 20px 5%; border-radius: 5px; border: 1px solid #c3e6cb;">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <main>
-        @yield('content')
+    <div style="height: 100px;"></div> <main>
+        {{ $slot }}
     </main>
 
     @include('partials.footer')
 
-    <a href="https://wa.me/6285785617164" class="wa-float" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-        <span>Chat</span>
+    <a href="https://wa.me/6285785617164" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" width="60">
     </a>
-
-    <script src="{{ asset('js/script.js') }}"></script> 
-    @stack('scripts')
 </body>
 </html>
