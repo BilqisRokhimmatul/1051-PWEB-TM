@@ -8,6 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('lapangan', LapanganController::class);
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', function () {
@@ -22,6 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard', compact('stats', 'lapangans'));
     })->name('dashboard');
 
+    Route::get('/lapangan/search', [LapanganController::class, 'search'])->name('lapangan.search');
+
     Route::middleware(['admin'])->group(function () {
         Route::resource('lapangan', LapanganController::class);
     });
@@ -32,6 +36,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/about', function () { return view('about'); })->name('about');
     Route::get('/contact', function () { return view('contact'); })->name('contact');
+
+
+    Route::get('/pengaturan', [\App\Http\Controllers\LapanganController::class, 'updateKunjungan'])->name('pengaturan');
+    Route::post('/pengaturan/reset-kunjungan', [\App\Http\Controllers\LapanganController::class, 'resetKunjungan'])->name('reset.kunjungan');
+
+    Route::post('/api/save-preferences', [\App\Http\Controllers\LapanganController::class, 'savePreferences']);
     
 });
 

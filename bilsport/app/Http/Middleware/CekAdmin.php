@@ -8,18 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CekAdmin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
-     */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
-
-        if (auth()->check() && auth()->user()->role == 'admin') {
+        // Pengecekan apakah user yang login punya role 'admin'
+        if (auth()->check() && auth()->user()->role === 'admin') {
             return $next($request);
         }
 
-        return redirect('/dashboard')->with('error', 'Maaf, hanya Admin yang boleh akses halaman ini.');
+        // Kalau BUKAN admin, kita paksa error "Forbidden" biar ketahuan bedanya
+        abort(403, 'Maaf, Anda bukan admin! Role Anda saat ini adalah: ' . (auth()->user()->role ?? 'Kosong'));
     }
 }

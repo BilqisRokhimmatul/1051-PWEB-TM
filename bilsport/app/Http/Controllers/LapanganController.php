@@ -10,6 +10,7 @@ class LapanganController extends Controller
     public function index()
     {
         $lapangans = \App\Models\Lapangan::where('user_id', auth()->id())->paginate(10);
+        
         return view('lapangan.index', compact('lapangans'));
     }
 
@@ -76,5 +77,47 @@ class LapanganController extends Controller
         $lapangan->delete();
 
         return redirect()->route('lapangan.index')->with('success', 'Lapangan berhasil dihapus dari sistem!');
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->get('keyword');
+
+        $lapangans = \App\Models\Lapangan::where('nama_lapangan', 'LIKE', "%{$keyword}%")->get();
+
+        return response()->json($lapangans);
+    }
+
+    public function savePreferences(\Illuminate\Http\Request $request)
+    {
+        $theme = $request->input('theme', 'light');
+        $fontSize = $request->input('font_size', 'text-base');
+
+        return redirect()->back()
+            ->withCookie(cookie('theme', $theme, 43200, null, null, false, false)) 
+            ->withCookie(cookie('font_size', $fontSize, 43200, null, null, false, false));
+    }
+
+    public function updateKunjungan()
+    {
+        $kunjungan = session('jumlah_kunjungan', 0);
+        $waktuPertama = session('kunjungan_pertama', null);
+
+        $kunjungan++;
+        session(['jumlah_kunjungan' => $kunjungan]);
+
+        if (!$waktuPertama) {
+            session(['kunjungan_pertama' => now()->translatedFormat('d F Y, H:i:s') . ' WIB']);
+        }
+
+        session(['kunjungan_terakhir' => now()->translatedFormat('d F Y, H:i:s') . ' WIB']);
+
+        return view('pengaturan');
+    }
+
+    public function resetKunjungan()
+    {
+        session()->forget(['jumlah_kunjungan', 'kunjungan_pertama', 'kunjungan_terakhir']);
+        return redirect()->back()->with('success_reset', 'Hitungan kunjungan telah diulang dari awal!');
     }
 }

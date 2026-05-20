@@ -6,6 +6,33 @@
 
     <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
         
+        <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 40px; border-left: 5px solid maroon;">
+            <h3 style="color: maroon; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                🌤️ Informasi Cuaca Jember Terkini
+            </h3>
+            
+            <div id="loading-cuaca" style="color: #666; font-style: italic;">
+                🔄 Sedang mengambil data cuaca dari satelit, mohon tunggu...
+            </div>
+            
+            <div id="info-cuaca" style="display: none; align-items: center; gap: 40px; flex-wrap: wrap;">
+                <div>
+                    <p style="color: #888; font-size: 0.85rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px;">Lokasi Pemantauan</p>
+                    <p id="nama-kota" style="font-size: 1.2rem; font-weight: bold; color: #333;"></p>
+                </div>
+                <div>
+                    <p style="color: #888; font-size: 0.85rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px;">Suhu Saat Ini</p>
+                    <p style="font-size: 2rem; font-weight: 800; color: maroon; margin: 0;"><span id="suhu-cuaca"></span>°C</p>
+                </div>
+                <div>
+                    <p style="color: #888; font-size: 0.85rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px;">Kondisi Langit</p>
+                    <p id="kondisi-cuaca" style="font-size: 1.2rem; font-weight: bold; color: #333; text-transform: capitalize;"></p>
+                </div>
+                <div style="margin-left: auto; font-size: 0.85rem; color: #666; background: #fff5f5; padding: 8px 15px; border-radius: 8px; border: 1px dashed maroon;">
+                    📢 *Saran sistem: Pastikan memilih jenis lapangan **Indoor** jika kondisi terpantau hujan.*
+                </div>
+            </div>
+        </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
             @foreach($stats as $s)
             <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; border-bottom: 5px solid {{ $s['warna'] }}; transition: 0.3s;">
@@ -81,4 +108,38 @@
             </div>
         </div>
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", async function() {
+        const loadingElement = document.getElementById('loading-cuaca');
+        const infoElement = document.getElementById('info-cuaca');
+
+        try {
+
+            const response = await fetch('https://wttr.in/Surabaya?format=j1');
+
+            if (!response.ok) {
+                throw new Error('Gagal mendapatkan respon dari server cuaca.');
+            }
+
+            const data = await response.json();
+
+            const kota = data.nearest_area[0].areaName[0].value;
+            const suhu = data.current_condition[0].temp_C;
+            const deskripsi = data.current_condition[0].weatherDesc[0].value;
+
+            document.getElementById('nama-kota').innerText = kota + " (dan sekitarnya)";
+            document.getElementById('suhu-cuaca').innerText = suhu;
+            document.getElementById('kondisi-cuaca').innerText = deskripsi;
+
+            loadingElement.style.display = 'none';
+            infoElement.style.display = 'flex';
+
+        } catch (error) {
+            console.error("Error cuaca:", error);
+            loadingElement.style.color = '#dc3545';
+            loadingElement.innerText = "⚠️ Gagal memuat data cuaca otomatis. Silakan periksa koneksi internet Anda.";
+        }
+    });
+    </script>
 </x-app-layout>
