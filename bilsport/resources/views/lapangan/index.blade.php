@@ -49,11 +49,6 @@
                         </button>
 
                         <div id="profileDropdown" class="hidden absolute right-0 top-14 w-48 bg-white rounded-2xl shadow-lg border border-amber-100/70 py-2 z-50 animate-fadeIn">
-                            <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-amber-50/50 hover:text-red-900 transition font-medium">
-                                <i class="fa-solid fa-user-gear text-gray-400 w-4"></i> Profil Saya
-                            </a>
-                            
-                            <hr class="border-amber-50 my-1">
                             
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

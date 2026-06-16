@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,14 +32,11 @@
 
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="{{ route('dashboard') }}" class="border-b-2 {{ request()->routeIs('dashboard') ? 'border-red-800 font-bold text-red-950' : 'border-transparent text-gray-500 hover:text-red-900' }} px-1 pt-1 text-sm transition">Beranda</a>
-                    
                     <a href="{{ route('lapangan.index') }}" class="border-b-2 {{ request()->routeIs('lapangan.*') ? 'border-red-800 font-bold text-red-950' : 'border-transparent text-gray-500 hover:text-red-900' }} px-1 pt-1 text-sm transition">Lapangan</a>
-                    
                     <a href="{{ route('booking-admin.index') }}" class="border-b-2 {{ request()->routeIs('booking-admin.*') ? 'border-red-800 font-bold text-red-950' : 'border-transparent text-gray-500 hover:text-red-900' }} px-1 pt-1 text-sm transition">Transaksi</a>
                 </div>
 
                 <div class="flex items-center space-x-6">
-                    
                     <button id="themeToggle" class="text-sm font-semibold text-gray-500 hover:text-red-800 transition flex items-center gap-2 cursor-pointer bg-amber-50/50 px-3 py-1.5 rounded-xl border border-amber-100/50">
                         <i id="themeIcon" class="fa-solid fa-moon text-xs"></i> 
                         <span id="themeText">Mode Gelap</span>
@@ -56,12 +53,6 @@
                         </button>
 
                         <div id="profileDropdown" class="hidden absolute right-0 top-14 w-48 bg-white rounded-2xl shadow-lg border border-amber-100/70 py-2 z-50 animate-fadeIn">
-                            <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-amber-50/50 hover:text-red-900 transition font-medium">
-                                <i class="fa-solid fa-user-gear text-gray-400 w-4"></i> Profil Saya
-                            </a>
-                            
-                            <hr class="border-amber-50 my-1">
-                            
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-700 hover:bg-red-50/70 transition font-bold text-left cursor-pointer">
@@ -70,21 +61,19 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
 
             </div>
         </div>
     </nav>
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="mb-8">
             <h1 class="text-3xl font-black text-gray-900 tracking-tight">Selamat Datang, Admin! 👋</h1>
             <p class="text-gray-500 mt-1">Berikut adalah ringkasan performa bisnis dan kondisi operasional BILSPORT hari ini.</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            
             <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="bg-white/60 backdrop-blur-xs p-6 rounded-2xl shadow-xs border border-amber-100/60 flex items-center justify-between">
                     <div>
@@ -97,7 +86,7 @@
 
                 <div class="bg-white/60 backdrop-blur-xs p-6 rounded-2xl shadow-xs border border-amber-100/60 flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Booking Hack Aktif</p>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Booking Masuk Aktif</p>
                         <h3 class="text-2xl font-black text-gray-900 mt-1">18 Transaksi</h3>
                         <span class="text-xs text-red-800 font-semibold bg-red-50 px-2 py-0.5 rounded mt-2 inline-block">Hari ini</span>
                     </div>
@@ -132,7 +121,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="bg-white/80 backdrop-blur-xs p-6 rounded-2xl shadow-xs border border-amber-100/70">
@@ -151,97 +139,106 @@
                 <canvas id="trenPenjualanChart"></canvas>
             </div>
         </div>
-</main>
+    </main>
 
     <script>
-        // JS 1: Logika Dropdown Profil (Muncul / Sembunyi saat diklik)
-        const profileMenuBtn = document.getElementById('profileMenuBtn');
-        const profileDropdown = document.getElementById('profileDropdown');
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("JS Admin Ready!");
 
-        profileMenuBtn.addEventListener('click', function(event) {
-            event.stopPropagation(); // Mencegah dropdown langsung tertutup saat diklik
-            profileDropdown.classList.toggle('hidden');
-        });
+            // 1. DROPDOWN PROFILE LOGIC
+            const profileMenuBtn = document.getElementById('profileMenuBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
 
-        // Klik di luar area dropdown untuk menutup menu secara otomatis
-        document.addEventListener('click', function(event) {
-            if (!profileDropdown.classList.contains('hidden')) {
-                profileDropdown.classList.add('hidden');
-            }
-        });
+            if (profileMenuBtn && profileDropdown) {
+                profileMenuBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    profileDropdown.classList.toggle('hidden');
+                });
 
-        // JS 2: Logika Transparansi Navbar saat Di-scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('adminNavbar');
-            if (window.scrollY > 20) {
-                navbar.classList.remove('bg-white/90');
-                navbar.classList.add('bg-white/60', 'shadow-md', 'border-amber-100/80');
-            } else {
-                navbar.classList.remove('bg-white/60', 'shadow-md', 'border-amber-100/80');
-                navbar.classList.add('bg-white/90');
-            }
-        });
-
-        // JS 3: Logika Toggle Tema Gelap/Terang
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
-        let isDarkMode = false;
-
-        themeToggle.addEventListener('click', function() {
-            isDarkMode = !isDarkMode;
-            if (isDarkMode) {
-                document.body.style.backgroundColor = '#1e1b18';
-                document.body.classList.add('text-amber-50');
-                themeIcon.className = "fa-solid fa-sun text-amber-400";
-                themeText.innerText = "Mode Terang";
-                themeToggle.classList.add('bg-gray-800', 'text-amber-100');
-            } else {
-                document.body.style.backgroundColor = '#fdfbf7';
-                document.body.classList.remove('text-amber-50');
-                themeIcon.className = "fa-solid fa-moon text-xs";
-                themeText.innerText = "Mode Gelap";
-                themeToggle.classList.remove('bg-gray-800', 'text-amber-100');
-            }
-        });
-
-
-        // JS 4: Render Chart.js (Maroon & Butter Line Style)
-        const ctx = document.getElementById('trenPenjualanChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
-                datasets: [{
-                    label: 'Pendapatan (Rp)',
-                    data: [400000, 650000, 500000, 850000, 1200000, 2100000, 1800000],
-                    borderColor: '#800000',
-                    backgroundColor: 'rgba(253, 251, 247, 0.6)',
-                    fill: true,
-                    tension: 0.4,
-                    borderWidth: 3,
-                    pointBackgroundColor: '#800000',
-                    pointBorderColor: '#fdfbf7',
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        grid: { color: '#f5f1e9' },
-                        ticks: { color: '#78716c', font: { size: 11, weight: 'bold' } }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: '#78716c', font: { size: 11, weight: 'bold' } }
+                document.addEventListener('click', function (e) {
+                    if (!profileMenuBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                        profileDropdown.classList.add('hidden');
                     }
-                }
+                });
+            }
+
+            // 2. NAVBAR SCROLL EFFECT
+            const navbar = document.getElementById('adminNavbar');
+            if (navbar) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 20) {
+                        navbar.classList.remove('bg-white/90');
+                        navbar.classList.add('bg-white/60', 'shadow-md', 'border-amber-100/80');
+                    } else {
+                        navbar.classList.remove('bg-white/60', 'shadow-md', 'border-amber-100/80');
+                        navbar.classList.add('bg-white/90');
+                    }
+                });
+            }
+
+            // 3. DARK MODE TOGGLE LOGIC
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            let isDarkMode = false;
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    isDarkMode = !isDarkMode;
+                    if (isDarkMode) {
+                        document.body.style.backgroundColor = '#1e1b18';
+                        document.body.classList.add('text-amber-50');
+                        themeIcon.className = "fa-solid fa-sun text-amber-400";
+                        themeText.innerText = "Mode Terang";
+                        themeToggle.classList.add('bg-gray-800', 'text-amber-100');
+                    } else {
+                        document.body.style.backgroundColor = '#fdfbf7';
+                        document.body.classList.remove('text-amber-50');
+                        themeIcon.className = "fa-solid fa-moon text-xs";
+                        themeText.innerText = "Mode Gelap";
+                        themeToggle.classList.remove('bg-gray-800', 'text-amber-100');
+                    }
+                });
+            }
+
+            // 4. CHART.JS RENDER
+            const chartCanvas = document.getElementById('trenPenjualanChart');
+            if (chartCanvas) {
+                const ctx = chartCanvas.getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+                        datasets: [{
+                            label: 'Pendapatan (Rp)',
+                            data: [400000, 650000, 500000, 850000, 1200000, 2100000, 1800000],
+                            borderColor: '#800000',
+                            backgroundColor: 'rgba(253, 251, 247, 0.6)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 3,
+                            pointBackgroundColor: '#800000',
+                            pointBorderColor: '#fdfbf7',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: {
+                                grid: { color: '#f5f1e9' },
+                                ticks: { color: '#78716c', font: { size: 11, weight: 'bold' } }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: '#78716c', font: { size: 11, weight: 'bold' } }
+                            }
+                        }
+                    }
+                });
             }
         });
     </script>

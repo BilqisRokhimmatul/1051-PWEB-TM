@@ -67,7 +67,7 @@
                 <a href="{{ url('/dashboard') }}" class="text-maroon-bilsport dark:text-red-400 border-b-2 border-[#4a121a] dark:border-red-400 pb-1 transition">Beranda</a>
                 <a href="#sektor-lapangan" class="text-gray-500 dark:text-zinc-400 hover:text-maroon-bilsport dark:hover:text-red-400 transition">Booking</a>
                 <a href="#sektor-lapangan" class="text-gray-500 dark:text-zinc-400 hover:text-maroon-bilsport dark:hover:text-red-400 transition">Lapangan</a>
-                <a href="#" class="text-gray-500 dark:text-zinc-400 hover:text-maroon-bilsport dark:hover:text-red-400 transition">Riwayat</a>
+                <a href="{{ route('booking.riwayat') }}" class="{{ request()->routeIs('booking.riwayat') ? 'text-maroon-bilsport font-black border-b-2 border-maroon-bilsport' : 'text-gray-500 font-semibold' }} hover:text-maroon-bilsport transition py-2 text-sm">Riwayat</a>
             </div>
 
             <!-- SISI KANAN NAVBAR -->
@@ -95,8 +95,6 @@
                     </button>
 
                     <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-2xl shadow-xl py-2 z-50">
-                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2.5 text-sm font-semibold text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700 transition">⚙️ Pengaturan Profil</a>
-                        <hr class="border-gray-100 dark:border-zinc-700 my-1">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="w-full text-left block px-4 py-2.5 text-sm font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-zinc-700 transition cursor-pointer">🚪 Keluar Aplikasi</button>
@@ -106,6 +104,44 @@
             </div>
         </div>
     </nav>
+
+    @if(session('success'))
+    <div id="success-alert" class="max-w-3xl mx-auto mx-4 sm:mx-6 lg:mx-8 mt-6 bg-emerald-50 dark:bg-zinc-950 border border-emerald-200 dark:border-emerald-900/50 p-6 rounded-2xl shadow-sm flex items-start gap-4 transition-all duration-300 transform scale-100">
+        <div class="bg-emerald-500 text-white p-3 rounded-xl shadow-xs shrink-0 animate-bounce">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+        </div>
+        
+        <div class="flex-1">
+            <h3 class="text-sm font-black text-emerald-900 dark:text-emerald-400 uppercase tracking-wider">Pesan Berhasil Terkirim! 🎉</h3>
+            <p class="text-xs text-emerald-700 dark:text-zinc-400 mt-1 font-semibold leading-relaxed">
+                {{ session('success') }}
+            </p>
+            <p class="text-[10px] text-gray-400 dark:text-zinc-500 mt-2 italic">
+                💡 Anda dapat memantau perubahan status pembayaran secara berkala di halaman riwayat.
+            </p>
+        </div>
+
+        <button onclick="document.getElementById('success-alert').remove()" class="text-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-300 transition p-1 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // Otomatis menghilangkan alert setelah 7 detik agar tidak memenuhi layar
+        setTimeout(() => {
+            const alert = document.getElementById('success-alert');
+            if(alert) {
+                alert.style.opacity = '0';
+                alert.style.transform = 'scale(0.95)';
+                setTimeout(() => alert.remove(), 300);
+            }
+        }, 7000);
+    </script>
+    @endif
 
     <!-- ========================================================================= -->
     <!-- [B, C, D] AREA WRAPPER UTAMA                                             -->
@@ -143,7 +179,8 @@
         <div class="max-w-3xl mx-auto mt-10 px-6 relative z-30">
             <form action="#" method="GET">
                 <div class="bg-white/10 backdrop-blur-xl p-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-white/20">
-                    <input type="text" name="search" class="flex-1 bg-transparent text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none placeholder-white/50 font-medium" placeholder="Cari lapangan kesukaanmu...">
+                    <!-- Tambahkan id="search-input" -->
+                    <input type="text" id="search-input" name="search" class="flex-1 bg-transparent text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none placeholder-white/50 font-medium" placeholder="Cari lapangan kesukaanmu...">
                     <button type="submit" class="bg-[#4a121a] dark:bg-zinc-800 hover:bg-[#320a10] dark:hover:bg-zinc-700 text-white font-bold text-sm px-7 py-3 rounded-xl transition shadow-md whitespace-nowrap border border-white/10">
                         Cari Lapangan
                     </button>
@@ -207,8 +244,9 @@
         <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 items-start">
             
             <div class="xl:col-span-3">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @forelse($lapangans as $lp)
+            <!-- Tambahkan id="lapangan-container" di div grid ini -->
+            <div id="lapangan-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @forelse($lapangans as $lp)
                     <div class="bg-white dark:bg-zinc-950 rounded-3xl overflow-hidden shadow-xs border border-gray-100 dark:border-zinc-800 hover:shadow-md hover:-translate-y-1 transition duration-300 group flex flex-col">
                         <div class="w-full h-48 bg-[#f7f5f0] dark:bg-zinc-900 flex items-center justify-center relative overflow-hidden">
                             @if($lp->foto_lapangan)
@@ -245,7 +283,7 @@
                                 </div>
                             </div>
 
-                            <a href="#" class="w-full bg-maroon-bilsport dark:bg-zinc-800 hover:bg-[#320a10] dark:hover:bg-zinc-700 text-white text-center py-3 rounded-xl font-bold text-xs tracking-wider uppercase shadow-xs transition block mt-4">
+                            <a href="{{ route('booking.create', $lp->id) }}" class="w-full bg-maroon-bilsport dark:bg-zinc-800 hover:bg-[#320a10] dark:hover:bg-zinc-700 text-white text-center py-3 rounded-xl font-bold text-xs tracking-wider uppercase shadow-xs transition block mt-4">
                                 Pesan Lapangan
                             </a>
                         </div>
@@ -267,23 +305,23 @@
                         <p class="font-bold text-[11px] text-gray-400 uppercase tracking-wider mb-3">Cabang Olahraga</p>
                         <div class="space-y-3 text-xs font-bold text-gray-600 dark:text-zinc-400">
                             <label class="flex items-center gap-3 cursor-pointer hover:text-maroon-bilsport dark:hover:text-red-400 transition">
-                                <input type="checkbox" class="rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Futsal
+                                <input type="checkbox" value="Futsal" class="filter-kategori rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Futsal
                             </label>
                             <label class="flex items-center gap-3 cursor-pointer hover:text-maroon-bilsport dark:hover:text-red-400 transition">
-                                <input type="checkbox" class="rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Badminton
+                                <input type="checkbox" value="Badminton" class="filter-kategori rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Badminton
                             </label>
                             <label class="flex items-center gap-3 cursor-pointer hover:text-maroon-bilsport dark:hover:text-red-400 transition">
-                                <input type="checkbox" class="rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Basket
+                                <input type="checkbox" value="Basket" class="filter-kategori rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Basket
                             </label>
                             <label class="flex items-center gap-3 cursor-pointer hover:text-maroon-bilsport dark:hover:text-red-400 transition">
-                                <input type="checkbox" class="rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Voly
+                                <input type="checkbox" value="Voly" class="filter-kategori rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Voly
                             </label>
                             <label class="flex items-center gap-3 cursor-pointer hover:text-maroon-bilsport dark:hover:text-red-400 transition">
-                                <input type="checkbox" class="rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Padel
+                                <input type="checkbox" value="Padel" class="filter-kategori rounded border-gray-300 text-maroon-bilsport focus:ring-maroon-bilsport w-4 h-4"> Padel
                             </label>
                         </div>
                     </div>
-                    <button class="w-full bg-maroon-bilsport dark:bg-zinc-800 hover:bg-[#320a10] dark:hover:bg-zinc-700 text-white py-3 rounded-xl tracking-wider uppercase text-[10px] font-black transition shadow-sm cursor-pointer">
+                    <button id="btn-terapkan-filter" class="w-full bg-maroon-bilsport dark:bg-zinc-800 hover:bg-[#320a10] dark:hover:bg-zinc-700 text-white py-3 rounded-xl tracking-wider uppercase text-[10px] font-black transition shadow-sm cursor-pointer">
                         Terapkan Filter
                     </button>
                 </div>
@@ -345,9 +383,56 @@
                 loadingElement.innerText = "⚠️ Layanan satelit cuaca lokal sedang sibuk.";
             }
         });
+
+        // Fungsi utama untuk mengambil data gabungan (Search + Checkbox Kategori)
+        function jalankanFilterAjax() {
+            let query = document.getElementById('search-input').value;
+            const container = document.getElementById('lapangan-container');
+            
+            // Kumpulkan semua kategori yang sedang dicentang
+            let kategoriTerpilih = [];
+            document.querySelectorAll('.filter-kategori:checked').forEach(checkbox => {
+                kategoriTerpilih.push(checkbox.value);
+            });
+
+            // Buat URL query string dinamis
+            let currentUrl = window.location.pathname;
+            let params = new URLSearchParams();
+            
+            if (query) params.append('search', query);
+            if (kategoriTerpilih.length > 0) params.append('kategori', kategoriTerpilih.join(','));
+
+            fetch(`${currentUrl}?${params.toString()}`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'text/html'
+                }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Jaringan bermasalah.');
+                return response.text();
+            })
+            .then(html => {
+                container.innerHTML = html;
+            })
+            .catch(error => console.error('Error Filter:', error));
+        }
+
+        // Event 1: Saat user mengetik di kolom search
+        document.getElementById('search-input').addEventListener('input', jalankanFilterAjax);
+
+        // Event 2: Real-time filter saat checkbox diklik/dicentang langsung
+        document.querySelectorAll('.filter-kategori').forEach(checkbox => {
+            checkbox.addEventListener('change', jalankanFilterAjax);
+        });
+
+        // Event 3: Tombol manual "Terapkan Filter" (sesuai gambar)
+        document.getElementById('btn-terapkan-filter').addEventListener('click', function(e) {
+            e.preventDefault();
+            jalankanFilterAjax();
+        });
     </script>
-    <div id="kontak">
-        @include('partials.footer')
-    </div>
+
 </body>
 </html>

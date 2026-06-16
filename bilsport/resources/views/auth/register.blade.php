@@ -80,7 +80,7 @@
 
         <!-- FIELD EMAIL -->
         <div class="block mb-6">
-            <x-input-label for="email" value="Email Universitas / Akun" class="text-xs font-semibold text-gray-700 pl-0.5 tracking-wide block mb-1" />
+            <x-input-label for="email" value="Email" class="text-xs font-semibold text-gray-700 pl-0.5 tracking-wide block mb-1" />
             <input id="email" type="email" name="email" :value="old('email')" required autocomplete="username"
                 class="input-minimalis text-gray-800" 
                 placeholder="iqis@gmail.com">

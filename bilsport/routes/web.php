@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookingAdminController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingPelangganController;
 
 // =========================================================================
 // 1. RUTE UMUM / PUBLIC (Bisa diakses tanpa login)
@@ -24,6 +25,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // --- Fitur Pencarian Lapangan (Pelanggan & Admin) ---
     Route::get('/lapangan/search', [LapanganController::class, 'search'])->name('lapangan.search');
+
+    // --- Fitur Booking
+    Route::get('/booking/lapangan/{id}', [BookingPelangganController::class, 'create'])->name('booking.create');
+    Route::post('/booking/store', [BookingPelangganController::class, 'store'])->name('booking.store');
+    Route::get('/api/cek-jadwal', [BookingPelangganController::class, 'cekJadwal']);
+    Route::get('/riwayat-booking', [BookingPelangganController::class, 'riwayat'])->name('booking.riwayat');
 
     // --- Manajemen Profil User ---
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -52,8 +59,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('lapangan', LapanganController::class);
 
         // --- Manajemen Data Booking di Sisi Admin ---
-        Route::get('/admin/booking', [BookingAdminController::class, 'index'])->name('booking-admin.index');
-        
+        Route::get('/admin/transaksi', [BookingAdminController::class, 'index'])->name('booking-admin.index');
+        Route::patch('/admin/transaksi/{id}/status', [BookingAdminController::class, 'updateStatus'])->name('booking-admin.update');
     });
     
 });

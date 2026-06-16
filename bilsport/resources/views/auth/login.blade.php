@@ -73,7 +73,7 @@
 
         <!-- FIELD EMAIL (Style Minimalis Garis Bawah) -->
         <div class="flex flex-col space-y-1">
-            <x-input-label for="email" value="Email Universitas / Akun" class="text-xs font-semibold text-gray-500 pl-0.5 tracking-wide" />
+            <x-input-label for="email" value="Email" class="text-xs font-semibold text-gray-500 pl-0.5 tracking-wide" />
             <input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username"
                 class="input-minimalis text-gray-800" 
                 placeholder="iqis@gmail.com">
