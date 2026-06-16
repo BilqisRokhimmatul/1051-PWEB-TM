@@ -9,14 +9,16 @@ class Lapangan extends Model
 {
     use HasFactory;
 
+    // Tambahkan 'lokasi' ke dalam daftar di bawah ini agar diizinkan masuk database!
     protected $fillable = [
-    'kode_lapangan', 
-    'nama_lapangan', 
-    'email_kontak', 
-    'kategori', 
-    'harga_per_jam', 
-    'foto_lapangan', 
-    'user_id'       
+        'user_id', 
+        'kode_lapangan', 
+        'nama_lapangan', 
+        'email_kontak', 
+        'lokasi', 
+        'kategori', 
+        'harga_per_jam', 
+        'foto_lapangan' // <-- Pastikan tertulis begini agar diizinkan masuk
     ];
 
     public function user()

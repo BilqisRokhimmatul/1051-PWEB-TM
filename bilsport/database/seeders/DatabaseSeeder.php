@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create([
-            'name' => 'Admin Bilqis',
-            'email' => 'bilqis@example.com',
+        // KITA PERBAIKI AKUN ADMIN BILQIS DI SINI:
+        User::create([
+            'name' => 'Admin Bilsport',
+            'email' => 'bilsport@gmail.com', // Email bodong kamu
+            'password' => Hash::make('admin123'), // Sekarang password-nya jelas: admin123
+            'role' => 'admin', // Menegaskan kalau akun ini adalah ADMIN (sesuaikan nama kolom di databasemu)
         ]);
 
+        // Tetap memanggil LapanganSeeder bawaan kamu agar data lapangan tidak hilang
         $this->call([
             LapanganSeeder::class,
         ]);

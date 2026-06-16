@@ -1,145 +1,254 @@
-<x-app-layout>
-    <section style="background: linear-gradient(135deg, #800000 0%, #4a0000 100%); color: white; padding: 60px 20px; text-align: center; border-radius: 0 0 50px 50px; margin-bottom: 40px;">
-        <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 15px;">Selamat Datang di Sistem Booking Lapangan Jember</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9;">Solusi mudah, cepat, dan online untuk reservasi lapangan futsal, badminton, dan basket di Kota Jember.</p>
-    </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda Admin - BILSPORT</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            background-color: #fdfbf7;
+        }
+        body, nav, div, p, h1, h2, h3, h4, th, td {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-gray-800 font-sans">
 
-    <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
-        
-        <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 40px; border-left: 5px solid maroon;">
-            <h3 style="color: maroon; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-                🌤️ Informasi Cuaca Jember Terkini
-            </h3>
-            
-            <div id="loading-cuaca" style="color: #666; font-style: italic;">
-                🔄 Sedang mengambil data cuaca dari satelit, mohon tunggu...
-            </div>
-            
-            <div id="info-cuaca" style="display: none; align-items: center; gap: 40px; flex-wrap: wrap;">
-                <div>
-                    <p style="color: #888; font-size: 0.85rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px;">Lokasi Pemantauan</p>
-                    <p id="nama-kota" style="font-size: 1.2rem; font-weight: bold; color: #333;"></p>
-                </div>
-                <div>
-                    <p style="color: #888; font-size: 0.85rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px;">Suhu Saat Ini</p>
-                    <p style="font-size: 2rem; font-weight: 800; color: maroon; margin: 0;"><span id="suhu-cuaca"></span>°C</p>
-                </div>
-                <div>
-                    <p style="color: #888; font-size: 0.85rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px;">Kondisi Langit</p>
-                    <p id="kondisi-cuaca" style="font-size: 1.2rem; font-weight: bold; color: #333; text-transform: capitalize;"></p>
-                </div>
-                <div style="margin-left: auto; font-size: 0.85rem; color: #666; background: #fff5f5; padding: 8px 15px; border-radius: 8px; border: 1px dashed maroon;">
-                    📢 *Saran sistem: Pastikan memilih jenis lapangan **Indoor** jika kondisi terpantau hujan.*
-                </div>
-            </div>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
-            @foreach($stats as $s)
-            <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; border-bottom: 5px solid {{ $s['warna'] }}; transition: 0.3s;">
-                <span style="font-size: 2.5rem;">{{ $s['ikon'] }}</span>
-                <h4 style="color: #888; font-size: 0.9rem; margin-top: 10px;">{{ $s['judul'] }}</h4>
-                <p style="font-size: 1.8rem; font-weight: bold; color: #333;">{{ $s['nilai'] }}</p>
-            </div>
-            @endforeach
-        </div>
-
-        <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 30px; margin-bottom: 50px;">
-            
-            <div style="background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                    <h3 style="color: maroon; font-weight: bold; font-size: 1.4rem;">Daftar Lengkap Data Lapangan</h3>
-                    <a href="{{ route('lapangan.create') }}" style="background: maroon; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: bold;">+ Tambah Lapangan</a>
-                </div>
+    <nav id="adminNavbar" class="bg-white/90 backdrop-blur-md shadow-xs sticky top-0 z-50 border-b border-amber-100/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
                 
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <thead style="background: maroon; color: white;">
-                            <tr>
-                                <th style="padding: 15px; text-align: left; border-radius: 12px 0 0 0;">NO</th>
-                                <th style="padding: 15px; text-align: left;">KODE</th>
-                                <th style="padding: 15px; text-align: left;">NAMA LAPANGAN</th>
-                                <th style="padding: 15px; text-align: left;">HARGA</th>
-                                <th style="padding: 15px; text-align: center; border-radius: 0 12px 0 0;">AKSI</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($lapangans as $key => $lp)
-                            <tr style="border-bottom: 1px solid #f5f5f5;">
-                                <td style="padding: 15px;">{{ $key + 1 }}</td>
-                                <td style="padding: 15px; font-weight: bold; color: maroon;">{{ $lp->kode_lapangan }}</td>
-                                <td style="padding: 15px;">{{ $lp->nama_lapangan }}</td>
-                                <td style="padding: 15px;">Rp {{ number_format($lp->harga_per_jam) }}</td>
-                                <td style="padding: 15px; text-align: center;">
-                                    <a href="{{ route('lapangan.edit', $lp->id) }}" style="background: #ffc107; color: black; padding: 5px 12px; border-radius: 6px; text-decoration: none; font-size: 0.8rem; font-weight: bold;">Edit</a>
-                                    <form action="{{ route('lapangan.destroy', $lp->id) }}" method="POST" style="display:inline;">
-                                        @csrf @method('DELETE')
-                                        <button style="background: #dc3545; color: white; border: none; padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">Hapus</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="flex items-center">
+                    <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
+                        <img src="{{ asset('images/logo.png') }}" alt="BILSPORT Logo" class="h-15 w-auto object-contain">
+                        <span class="text-[10px] bg-red-100 text-red-800 px-2 py-0.5 rounded-sm font-bold tracking-normal">ADMIN</span>
+                    </a>
                 </div>
-            </div>
 
-            <aside>
-                <div style="background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: sticky; top: 120px;">
-                    <h3 style="color: maroon; font-weight: bold; border-bottom: 2px solid maroon; padding-bottom: 10px; margin-bottom: 20px;">Filter Lapangan</h3>
-                    <div style="margin-bottom: 25px;">
-                        <p style="font-weight: bold; margin-bottom: 12px; color: #555;">🎾 Kategori Olahraga</p>
-                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer;"><input type="checkbox"> Futsal</label>
-                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer;"><input type="checkbox"> Badminton</label>
-                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer;"><input type="checkbox"> Basket</label>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="{{ route('dashboard') }}" class="border-b-2 {{ request()->routeIs('dashboard') ? 'border-red-800 font-bold text-red-950' : 'border-transparent text-gray-500 hover:text-red-900' }} px-1 pt-1 text-sm transition">Beranda</a>
+                    
+                    <a href="{{ route('lapangan.index') }}" class="border-b-2 {{ request()->routeIs('lapangan.*') ? 'border-red-800 font-bold text-red-950' : 'border-transparent text-gray-500 hover:text-red-900' }} px-1 pt-1 text-sm transition">Lapangan</a>
+                    
+                    <a href="{{ route('booking-admin.index') }}" class="border-b-2 {{ request()->routeIs('booking-admin.*') ? 'border-red-800 font-bold text-red-950' : 'border-transparent text-gray-500 hover:text-red-900' }} px-1 pt-1 text-sm transition">Transaksi</a>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    
+                    <button id="themeToggle" class="text-sm font-semibold text-gray-500 hover:text-red-800 transition flex items-center gap-2 cursor-pointer bg-amber-50/50 px-3 py-1.5 rounded-xl border border-amber-100/50">
+                        <i id="themeIcon" class="fa-solid fa-moon text-xs"></i> 
+                        <span id="themeText">Mode Gelap</span>
+                    </button>
+                    
+                    <div class="relative items-center space-x-3 border-l pl-6 border-amber-100 flex">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-sm font-bold text-gray-900">{{ Auth::user()->name ?? 'Bilsport' }}</p>
+                            <p class="text-xs text-amber-700 font-semibold">Profile</p>
+                        </div>
+                        
+                        <button id="profileMenuBtn" class="w-10 h-10 bg-red-800 hover:bg-red-900 text-amber-100 rounded-full flex items-center justify-center font-bold shadow-xs cursor-pointer transition focus:outline-none">
+                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                        </button>
+
+                        <div id="profileDropdown" class="hidden absolute right-0 top-14 w-48 bg-white rounded-2xl shadow-lg border border-amber-100/70 py-2 z-50 animate-fadeIn">
+                            <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-amber-50/50 hover:text-red-900 transition font-medium">
+                                <i class="fa-solid fa-user-gear text-gray-400 w-4"></i> Profil Saya
+                            </a>
+                            
+                            <hr class="border-amber-50 my-1">
+                            
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-700 hover:bg-red-50/70 transition font-bold text-left cursor-pointer">
+                                    <i class="fa-solid fa-right-from-bracket text-red-400 w-4"></i> Keluar / Logout
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                    <button style="width: 100%; background: maroon; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer;">Terapkan Filter</button>
-                </div>
-            </aside>
-        </div>
 
-        <div style="text-align: center; margin-bottom: 60px;">
-            <h3 style="color: maroon; font-weight: bold; margin-bottom: 30px;">Grafik Pemesanan Mingguan</h3>
-            <div style="background: white; padding: 40px; border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); max-width: 900px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-around; height: 250px;">
-                <div style="width: 40px; height: 50%; background: maroon; border-radius: 10px 10px 0 0;"></div>
-                <div style="width: 40px; height: 70%; background: maroon; border-radius: 10px 10px 0 0;"></div>
-                <div style="width: 40px; height: 40%; background: maroon; border-radius: 10px 10px 0 0;"></div>
-                <div style="width: 40px; height: 90%; background: maroon; border-radius: 10px 10px 0 0;"></div>
-                <div style="width: 40px; height: 60%; background: maroon; border-radius: 10px 10px 0 0;"></div>
+                </div>
+
             </div>
         </div>
-    </div>
+    </nav>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Selamat Datang, Admin! 👋</h1>
+            <p class="text-gray-500 mt-1">Berikut adalah ringkasan performa bisnis dan kondisi operasional BILSPORT hari ini.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            
+            <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-white/60 backdrop-blur-xs p-6 rounded-2xl shadow-xs border border-amber-100/60 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Pendapatan</p>
+                        <h3 class="text-2xl font-black text-gray-900 mt-1">Rp 4.250.000</h3>
+                        <span class="text-xs text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded mt-2 inline-block"><i class="fa-solid fa-arrow-up text-[10px]"></i> +12% dari kemarin</span>
+                    </div>
+                    <div class="w-12 h-12 bg-amber-50 text-red-800 rounded-xl flex items-center justify-center text-xl border border-amber-100"><i class="fa-solid fa-wallet"></i></div>
+                </div>
+
+                <div class="bg-white/60 backdrop-blur-xs p-6 rounded-2xl shadow-xs border border-amber-100/60 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Booking Hack Aktif</p>
+                        <h3 class="text-2xl font-black text-gray-900 mt-1">18 Transaksi</h3>
+                        <span class="text-xs text-red-800 font-semibold bg-red-50 px-2 py-0.5 rounded mt-2 inline-block">Hari ini</span>
+                    </div>
+                    <div class="w-12 h-12 bg-red-50 text-red-800 rounded-xl flex items-center justify-center text-xl border border-red-100/50"><i class="fa-solid fa-calendar-check"></i></div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-red-800 to-red-950 p-6 rounded-2xl shadow-md text-white relative overflow-hidden border border-red-900">
+                <div class="absolute -right-6 -bottom-6 text-white/10 text-9xl">
+                    <i class="fa-solid fa-cloud-sun-rain"></i>
+                </div>
+                <div class="relative z-10 flex flex-col justify-between h-full">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-lg font-bold text-amber-100">Pantauan Cuaca</h4>
+                            <p class="text-[11px] text-amber-200/70">Kondisi operasional real-time</p>
+                        </div>
+                        <span class="text-[10px] bg-white/10 text-amber-200 backdrop-blur-md px-2 py-1 rounded-full font-bold uppercase tracking-wide border border-white/10">Live Jember</span>
+                    </div>
+                    
+                    <div class="my-4 flex items-center gap-4">
+                        <i class="fa-solid fa-cloud-sun text-4xl text-amber-300 animate-pulse"></i>
+                        <div>
+                            <h2 class="text-4xl font-black text-amber-50">29°C</h2>
+                            <p class="text-xs font-medium text-amber-200/90">Cerah Berawan (Aman untuk Main)</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 border-t border-white/10 pt-3 text-xs text-amber-100/80">
+                        <div><i class="fa-solid fa-droplet mr-1 text-amber-300"></i> Kelembaban: 75%</div>
+                        <div><i class="fa-solid fa-wind mr-1 text-amber-300"></i> Angin: 12 km/h</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bg-white/80 backdrop-blur-xs p-6 rounded-2xl shadow-xs border border-amber-100/70">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900">Grafik Tren Penjualan</h3>
+                    <p class="text-xs text-gray-400">Visualisasi statistik penyewaan lapangan minggu ini</p>
+                </div>
+                <select class="text-xs border border-amber-200 rounded-lg p-2 bg-amber-50/50 text-red-900 font-semibold focus:outline-none focus:ring-2 focus:ring-red-800">
+                    <option>7 Hari Terakhir</option>
+                    <option>Bulan Ini</option>
+                </select>
+            </div>
+            
+            <div class="w-full h-80">
+                <canvas id="trenPenjualanChart"></canvas>
+            </div>
+        </div>
+</main>
 
     <script>
-    document.addEventListener("DOMContentLoaded", async function() {
-        const loadingElement = document.getElementById('loading-cuaca');
-        const infoElement = document.getElementById('info-cuaca');
+        // JS 1: Logika Dropdown Profil (Muncul / Sembunyi saat diklik)
+        const profileMenuBtn = document.getElementById('profileMenuBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
 
-        try {
+        profileMenuBtn.addEventListener('click', function(event) {
+            event.stopPropagation(); // Mencegah dropdown langsung tertutup saat diklik
+            profileDropdown.classList.toggle('hidden');
+        });
 
-            const response = await fetch('https://wttr.in/Surabaya?format=j1');
-
-            if (!response.ok) {
-                throw new Error('Gagal mendapatkan respon dari server cuaca.');
+        // Klik di luar area dropdown untuk menutup menu secara otomatis
+        document.addEventListener('click', function(event) {
+            if (!profileDropdown.classList.contains('hidden')) {
+                profileDropdown.classList.add('hidden');
             }
+        });
 
-            const data = await response.json();
+        // JS 2: Logika Transparansi Navbar saat Di-scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('adminNavbar');
+            if (window.scrollY > 20) {
+                navbar.classList.remove('bg-white/90');
+                navbar.classList.add('bg-white/60', 'shadow-md', 'border-amber-100/80');
+            } else {
+                navbar.classList.remove('bg-white/60', 'shadow-md', 'border-amber-100/80');
+                navbar.classList.add('bg-white/90');
+            }
+        });
 
-            const kota = data.nearest_area[0].areaName[0].value;
-            const suhu = data.current_condition[0].temp_C;
-            const deskripsi = data.current_condition[0].weatherDesc[0].value;
+        // JS 3: Logika Toggle Tema Gelap/Terang
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        let isDarkMode = false;
 
-            document.getElementById('nama-kota').innerText = kota + " (dan sekitarnya)";
-            document.getElementById('suhu-cuaca').innerText = suhu;
-            document.getElementById('kondisi-cuaca').innerText = deskripsi;
+        themeToggle.addEventListener('click', function() {
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                document.body.style.backgroundColor = '#1e1b18';
+                document.body.classList.add('text-amber-50');
+                themeIcon.className = "fa-solid fa-sun text-amber-400";
+                themeText.innerText = "Mode Terang";
+                themeToggle.classList.add('bg-gray-800', 'text-amber-100');
+            } else {
+                document.body.style.backgroundColor = '#fdfbf7';
+                document.body.classList.remove('text-amber-50');
+                themeIcon.className = "fa-solid fa-moon text-xs";
+                themeText.innerText = "Mode Gelap";
+                themeToggle.classList.remove('bg-gray-800', 'text-amber-100');
+            }
+        });
 
-            loadingElement.style.display = 'none';
-            infoElement.style.display = 'flex';
 
-        } catch (error) {
-            console.error("Error cuaca:", error);
-            loadingElement.style.color = '#dc3545';
-            loadingElement.innerText = "⚠️ Gagal memuat data cuaca otomatis. Silakan periksa koneksi internet Anda.";
-        }
-    });
+        // JS 4: Render Chart.js (Maroon & Butter Line Style)
+        const ctx = document.getElementById('trenPenjualanChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+                datasets: [{
+                    label: 'Pendapatan (Rp)',
+                    data: [400000, 650000, 500000, 850000, 1200000, 2100000, 1800000],
+                    borderColor: '#800000',
+                    backgroundColor: 'rgba(253, 251, 247, 0.6)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#800000',
+                    pointBorderColor: '#fdfbf7',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        grid: { color: '#f5f1e9' },
+                        ticks: { color: '#78716c', font: { size: 11, weight: 'bold' } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#78716c', font: { size: 11, weight: 'bold' } }
+                    }
+                }
+            }
+        });
     </script>
-</x-app-layout>
+
+    <div id="kontak">
+        @include('partials.footer')
+    </div>
+
+</body>
+</html>

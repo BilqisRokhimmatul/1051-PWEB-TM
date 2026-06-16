@@ -2,47 +2,61 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LapanganController; 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BookingAdminController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// =========================================================================
+// 1. RUTE UMUM / PUBLIC (Bisa diakses tanpa login)
+// =========================================================================
+Route::get('/', [WelcomeController::class, 'index']);
 
-Route::resource('lapangan', LapanganController::class);
 
+// =========================================================================
+// 2. GRUP RUTE YANG WAJIB LOGIN (Auth & Verified)
+// =========================================================================
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        $stats = [
-            ['judul' => 'Total Lapangan', 'nilai' => '5', 'ikon' => '🏟️', 'warna' => 'maroon'],
-            ['judul' => 'Booking Hari Ini', 'nilai' => '12', 'ikon' => '📅', 'warna' => 'gold'],
-            ['judul' => 'User Aktif', 'nilai' => '150', 'ikon' => '👤', 'warna' => 'darkred'],
-        ];
+    // --- KUNCI UTAMA: Biarkan rute ini bernama 'dashboard' agar system login Laravel tidak error ---
+    // Mengarah ke DashboardController, menghasilkan view('dashboard-pelanggan') via if-else role
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        $lapangans = \App\Models\Lapangan::where('user_id', auth()->id())->get(); 
-
-        return view('dashboard', compact('stats', 'lapangans'));
-    })->name('dashboard');
-
+    // --- Fitur Pencarian Lapangan (Pelanggan & Admin) ---
     Route::get('/lapangan/search', [LapanganController::class, 'search'])->name('lapangan.search');
 
-    Route::middleware(['admin'])->group(function () {
-        Route::resource('lapangan', LapanganController::class);
-    });
-
+    // --- Manajemen Profil User ---
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // --- Halaman Statis ---
     Route::get('/about', function () { return view('about'); })->name('about');
     Route::get('/contact', function () { return view('contact'); })->name('contact');
 
+    // --- Fitur Pengaturan Tambahan ---
+    Route::get('/pengaturan', [LapanganController::class, 'updateKunjungan'])->name('pengaturan');
+    Route::post('/pengaturan/reset-kunjungan', [LapanganController::class, 'resetKunjungan'])->name('reset.kunjungan');
+    Route::post('/api/save-preferences', [LapanganController::class, 'savePreferences']);
 
-    Route::get('/pengaturan', [\App\Http\Controllers\LapanganController::class, 'updateKunjungan'])->name('pengaturan');
-    Route::post('/pengaturan/reset-kunjungan', [\App\Http\Controllers\LapanganController::class, 'resetKunjungan'])->name('reset.kunjungan');
+    // =========================================================================
+    // 3. GRUP RUTE KHUSUS ADMIN (Diproteksi Middleware 'admin')
+    // =========================================================================
+    Route::middleware(['admin'])->group(function () {
+        
+        // --- Dashboard Utama Admin ---
+        // Kita ubah nama rutenya menjadi 'admin.dashboard' agar tidak tabrakan dengan milik pelanggan
+        Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::post('/api/save-preferences', [\App\Http\Controllers\LapanganController::class, 'savePreferences']);
+        // --- Manajemen Data Lapangan (CRUD) ---
+        Route::resource('lapangan', LapanganController::class);
+
+        // --- Manajemen Data Booking di Sisi Admin ---
+        Route::get('/admin/booking', [BookingAdminController::class, 'index'])->name('booking-admin.index');
+        
+    });
     
 });
 
+// Memuat rute bawaan Laravel Breeze/Jetstream (Login, Register, Logout, dll)
 require __DIR__.'/auth.php';
